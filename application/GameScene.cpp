@@ -91,7 +91,6 @@ void GameScene::Initialize()
 
     timer_.Start();
 
-
 }
 
 void GameScene::Finalize()

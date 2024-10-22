@@ -82,6 +82,7 @@ void Enemy::Update()
         }
     }
 
+    if (hp_ <= 0) isDead_ = true;
 
     // Playerに攻撃されたら色を変更
     if (isBounce_) color_ = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
