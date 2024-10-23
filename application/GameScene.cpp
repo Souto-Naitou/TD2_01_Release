@@ -138,12 +138,12 @@ void GameScene::Update()
 
 
     /// 各オブジェクトの更新処理呼出
-    pPlayer_->Update();
-    pCore_->Update();
-    if (pNestWallLeft_) pNestWallLeft_->Update();
-    if (pNestWallTop_) pNestWallTop_->Update();
-    if (pNestWallRight_) pNestWallRight_->Update();
-    if (pNestWallBottom_) pNestWallBottom_->Update();
+    if (pPlayer_)           pPlayer_->Update();
+    if (pCore_)             pCore_->Update();
+    if (pNestWallLeft_)     pNestWallLeft_->Update();
+    if (pNestWallTop_)      pNestWallTop_->Update();
+    if (pNestWallRight_)    pNestWallRight_->Update();
+    if (pNestWallBottom_)   pNestWallBottom_->Update();
 
     for (Enemy* ptr : enemyList_) ptr->Update();
 
@@ -156,6 +156,7 @@ void GameScene::Update()
     {
         pEnemyPopSystem_->SpawnFromCSV(enemyList_, pPlayer_, isEnableLighter_, e2eBouncePower_);
     }
+
 
     /// Delete処理ここから
     for (std::list<Enemy*>::iterator itr = enemyList_.begin(); itr != enemyList_.end();)
@@ -175,11 +176,21 @@ void GameScene::Update()
     DeleteIf(&pNestWallRight_);
     DeleteIf(&pNestWallBottom_);
 
-    /// ゲームオーバー処理
+    /// コアの削除処理
+    DeleteIf(&pCore_);
+
+
+    /// ゲームクリア処理
     if (!pNestWallLeft_ && !pNestWallTop_ && !pNestWallRight_ && !pNestWallBottom_)
     {
         // (遷移を追加するならここ)
         SceneManager::GetInstance()->ChangeScene("gameclear");
+    }
+
+    if (!pCore_)
+    {
+        // (遷移を追加するならここ)
+        SceneManager::GetInstance()->ChangeScene("gameover");
     }
 
     // シーン遷移

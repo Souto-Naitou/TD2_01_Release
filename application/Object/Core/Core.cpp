@@ -68,6 +68,7 @@ void Core::RunSetMask()
 
 void Core::Update()
 {
+    if (hp_ <= 0) isDead_ = true;
 }
 
 void Core::Draw()
