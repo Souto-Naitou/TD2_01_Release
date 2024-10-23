@@ -90,4 +90,17 @@ private: /// 非公開メソッド
             *_object = nullptr;
         }
     }
+
+    /// <summary>
+    /// nullptrチェックを行い、安全に削除する
+    /// </summary>
+    /// <typeparam name="T">型</typeparam>
+    /// <param name="_object">オブジェクトのポインタのポインタ</param>
+    template<typename T>
+    void SafeDelete(T** _object)
+    {
+        if (!*_object) return;
+        delete* _object;
+        *_object = nullptr;
+    }
 };

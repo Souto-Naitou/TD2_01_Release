@@ -36,6 +36,7 @@ GameScene::~GameScene()
 {
     DebugManager::GetInstance()->DeleteComponent("GameScene");
     pCollisionManager_->ClearColliderList();
+
 }
 
 void GameScene::Initialize()
@@ -95,8 +96,13 @@ void GameScene::Initialize()
 
 void GameScene::Finalize()
 {
-    delete pCore_; pCore_ = nullptr;
-    delete pNestWallLeft_; pNestWallLeft_ = nullptr;
+    SafeDelete(&pCore_);
+    SafeDelete(&pNestWallLeft_);
+    SafeDelete(&pNestWallTop_);
+    SafeDelete(&pNestWallRight_);
+    SafeDelete(&pNestWallBottom_);
+    SafeDelete(&pPlayer_);
+    SafeDelete(&pEnemyPopSystem_);
 
     for (Enemy* ptr : enemyList_)
     {
@@ -154,7 +160,8 @@ void GameScene::Update()
     /// PopSystem
     if (isPop_)
     {
-        pEnemyPopSystem_->SpawnFromCSV(enemyList_, pPlayer_, isEnableLighter_, e2eBouncePower_);
+        if (pPlayer_ && pEnemyPopSystem_)
+            pEnemyPopSystem_->SpawnFromCSV(enemyList_, pPlayer_, isEnableLighter_, e2eBouncePower_);
     }
 
 
@@ -235,8 +242,8 @@ void GameScene::DebugWindow()
 {
     if (ImGui::Checkbox("Enable Lag Reduction (beta)", &isEnableLighter_))
     {
-        pPlayer_->SetEnableLighter(isEnableLighter_);
-        pCore_->SetEnableLighter(isEnableLighter_);
+        if (pPlayer_) pPlayer_->SetEnableLighter(isEnableLighter_);
+        if (pCore_) pCore_->SetEnableLighter(isEnableLighter_);
         for (Enemy* enemy : enemyList_)
         {
             enemy->SetEnableLighter(isEnableLighter_);
