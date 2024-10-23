@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "Draw2D.h"
+#include "PostEffect.h"
 
 #ifdef _DEBUG
 #include"ImGui.h"
@@ -29,6 +30,9 @@ void TitleScene::Initialize()
 
 	// bgm再生
 	bgmVH_ = Audio::GetInstance()->PlayWave(bgmSH_, true, 0.3f);
+
+	PostEffect::GetInstance()->SetBloomThreshold(0.35f);
+	PostEffect::GetInstance()->SetVignettePower(0.f);
 
 }
 

@@ -28,7 +28,7 @@ void Core::Initialize()
     };
     boxCore_.MakeSquare(30);
 
-    hp_ = 3;
+    hp_ = 7;
 
     std::vector<Vector2> temp = boxCore_.GetVertices();
     for (auto& v : temp)

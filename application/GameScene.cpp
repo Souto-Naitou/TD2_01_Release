@@ -16,6 +16,7 @@
 #include <format>
 #include <cmath>
 #include <numbers>
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -53,6 +54,8 @@ void GameScene::Initialize()
 
 	// ポストエフェクトの設定
     PostEffect::GetInstance()->SetBloomThreshold(0.35f);
+    PostEffect::GetInstance()->SetVignettePower(vignettePower);
+    PostEffect::GetInstance()->SetVignetteRange(vignetteRange);
 
 	// サウンドの読み込み
 	bgmSH_ = Audio::GetInstance()->LoadWaveFile("bgm/gameBGM.wav");
@@ -170,6 +173,15 @@ void GameScene::Update()
     /// 当たり判定処理
     pCollisionManager_->CheckAllCollision();
 
+    // ヴィネットエフェクト
+    if (pCore_) {
+        float maxHP = 7.0f; // 最大HPの値
+        float hpRatio = 1.0f - std::clamp(pCore_->GetHP() / maxHP, 0.0f, 1.0f); // HPが低いほど値が大きくなる
+        float power = vignettePower + std::clamp(hpRatio * vignettePowerMax, 0.0f, vignettePowerMax);
+        float range = vignetteRange - std::clamp(hpRatio * vignetteRangeMax, 0.0f, vignetteRangeMax);
+        PostEffect::GetInstance()->SetVignettePower(power);
+        PostEffect::GetInstance()->SetVignetteRange(range);
+    }
 
     /// PopSystem
     if (isPop_)
