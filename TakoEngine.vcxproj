@@ -158,6 +158,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\TitleScene.cpp" />
     <ClCompile Include="engine\scene\SceneManager.cpp" />
     <ClCompile Include="application\SceneFactory.cpp" />
+    <ClCompile Include="Shake.cpp" />
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +221,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="externals\math\Vector4.h" />
     <ClInclude Include="externals\Timer\Timer.h" />
     <ClInclude Include="Matrix3x3.h" />
+    <ClInclude Include="Shake.h" />
     <ClInclude Include="Transition.h" />
   </ItemGroup>
   <ItemGroup>
