@@ -38,5 +38,24 @@ private: // メンバ変数
 	Sprite* GameOversprite_ = new Sprite();
 	Sprite* Spacesprite_ = new Sprite();
 
+	static inline const float kDuration = 3.0f;
+
+	// 経過時間カウント
+	float counter_ = 0.0f;
+
+	// uiテクスチャの色
+	int uiColor_ = {};
+
+	int red_;
+	int green_;
+	int blue_;
+	int alpha_;
+
 	bool isDebug_ = false;
+
+	// UIの点滅処理
+	void UpdateUI();
+
+	// 色を設定
+	unsigned int GetColor(int red, int green, int blue, int alpha);
 };
