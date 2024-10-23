@@ -213,12 +213,16 @@ void GameScene::Update()
         // (遷移を追加するならここ)
         SceneManager::GetInstance()->ChangeScene("gameover");
     }
-
-    // シーン遷移
-    //if (Input::GetInstance()->TriggerKey(DIK_RETURN))
-    //{
-    //    SceneManager::GetInstance()->ChangeScene("title");
-    //}
+    //clearへ(仮)
+    if (Input::GetInstance()->TriggerKey(DIK_1))
+    {
+        SceneManager::GetInstance()->ChangeScene("clear");
+    }
+    //gameoverへ(仮)
+    if (Input::GetInstance()->TriggerKey(DIK_2))
+    {
+        SceneManager::GetInstance()->ChangeScene("gameover");
+    }
 }
 
 void GameScene::Draw()
