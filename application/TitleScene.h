@@ -3,6 +3,7 @@
 #include"Sprite.h"
 #include <vector>
 #include"Vector2.h"
+#include "Object/RotateBoard/RotateBoard.h"
 
 class TitleScene : public BaseScene
 {
@@ -37,6 +38,10 @@ private: // メンバ変数
 	//Sprite作成
 	Sprite* Titlesprite_ = new Sprite();
 	Sprite* Spacesprite_ = new Sprite();
+
+	RotateBoard* pRotateBoard_ = nullptr;
+
+	std::vector<Vector2> vertices_;
 
 	int originalWidth_ = 600;
 	int originalHeight_ = 250;

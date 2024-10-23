@@ -5,8 +5,11 @@
 #include "SpriteBasic.h"
 #include "Input.h"
 #include "Draw2D.h"
+#include "PostEffect.h"
 #include <algorithm>
 #include <cmath>
+#include <vector>
+#include "Helper/DefaultSettings.h"
 
 #define PI 3.14159265f
 
@@ -62,6 +65,19 @@ void TitleScene::Initialize()
 	green_ = 0xFF;
 	blue_ = 0xFF;
 	alpha_ = 0xFF;
+	
+	unsigned int offset = 20;
+
+	vertices_.push_back(Vector2(offset, offset));
+	vertices_.push_back(Vector2(DefaultSettings::kScreenWidth - offset, offset));
+	vertices_.push_back(Vector2(DefaultSettings::kScreenWidth - offset, DefaultSettings::kScreenHeight - offset));
+	vertices_.push_back(Vector2(offset, DefaultSettings::kScreenHeight - offset));
+
+	/// 回転板の初期化
+	pRotateBoard_ = new RotateBoard();
+	pRotateBoard_->Initialize();
+	pRotateBoard_->SetVertices(&vertices_);
+	pRotateBoard_->SetPadding(-1);
 }
 
 void TitleScene::Finalize()
@@ -80,6 +96,8 @@ void TitleScene::Update()
 	/// ================================== ///
 	///              更新処理               ///
 	/// ================================== ///
+
+	pRotateBoard_->Update();
 
 	//Spriteの更新
 	Titlesprite_->Update();
@@ -112,6 +130,8 @@ void TitleScene::Draw()
 		Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
 		0.0f, Vector4(0.01f, 0.01f, 0.01f, 1.0f)
 	);
+
+	pRotateBoard_->Draw();
 	
 	//------------------背景Spriteの描画------------------//
 	// スプライト共通描画設定

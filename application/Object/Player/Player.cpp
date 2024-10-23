@@ -62,6 +62,7 @@ void Player::Initialize()
     pRotateBoard_ = new RotateBoard();
     pRotateBoard_->Initialize();
     pRotateBoard_->SetVertices(&vertices_);
+
 }
 
 void Player::RunSetMask()
