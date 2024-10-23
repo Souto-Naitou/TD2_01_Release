@@ -3,3 +3,4 @@
 *.log
 *.user
 x64/Debug/*
+externals/imgui/x64/Debug/*
