@@ -2,7 +2,7 @@
 
 static const float PI = 3.14159265f;
 
-static const int KERNEL_SIZE = 50;
+static const int KERNEL_SIZE = 30;
 
 struct VignetteRedBloomParam
 {
