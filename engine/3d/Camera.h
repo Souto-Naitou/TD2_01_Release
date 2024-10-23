@@ -1,6 +1,6 @@
 #pragma once
 #include "Mat4x4Func.h"
-
+#include "Shake.h"
 
 class Camera
 {
@@ -36,6 +36,17 @@ public: // メンバー関数
 	void SetViewProjectionMatrix(const Matrix4x4& viewProjectionMatrix) { viewProjectionMatrix_ = viewProjectionMatrix; }
 
 private: // メンバー変数
+
+	Shake* pShake_ = nullptr;
+
+	// シェイクフラグ
+	bool isShakeing_ = false;
+	// 縦揺れフラグ
+	bool isVertical_ = false;
+	// 横揺れフラグ
+	bool isHorizontal_ = false;
+	// 元の位置に戻っているかどうか
+	bool isReturning_ = false;
 
 	// トランスフォーム
 	Transformer transform_;

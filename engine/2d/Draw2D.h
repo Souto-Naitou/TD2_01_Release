@@ -121,6 +121,13 @@ public: // メンバ関数
 	void Reset();
 
 	/// <summary>
+	/// ビュー行列を設定
+	/// </summary>
+	/// <param name="viewMatrix"></param>
+	/// <returns></returns>
+	void SetViewMatrix(const Matrix4x4& viewMatrix) { viewMatrix_ = viewMatrix; }
+
+	/// <summary>
 	/// デバッグフラグtrueでデバッグモード
 	/// <summary>
 	void SetDebug(bool isDebug) { isDebug_ = isDebug; }
@@ -202,6 +209,9 @@ private: // メンバ変数
 
 	// 三角形データ
 	TriangleData* triangleData_;
+
+	// ビュー行列
+	Matrix4x4 viewMatrix_;
 
 	// 矩形データ
 	BoxData* boxData_;

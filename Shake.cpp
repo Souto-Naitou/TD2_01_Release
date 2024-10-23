@@ -20,9 +20,11 @@ Vector3 Shake::ApplyRandomShake()
 	// ランダムな角度を生成（0から360度の範囲）
 	float angle = static_cast<float>(rand()) / RAND_MAX * 2.0f * PI; // 0~2πの範囲
 
+	float scaleMultiplier = 5.0f;
+
 	// 角度からX,Yのオフセットを計算
-	float offsetX = cosf(angle) * shakeScale_;
-	float offsetY = sinf(angle) * shakeScale_;
+	float offsetX = cosf(angle) * scaleMultiplier * shakeScale_;
+	float offsetY = sinf(angle) * scaleMultiplier * shakeScale_;
 
 	// 共通処理でプラスマイナスを切り替える
 	ToggleShakeDirection(offsetX, offsetY);
@@ -36,8 +38,10 @@ Vector3 Shake::ApplyVerticalShake()
 	// シェイクの強度を設定
 	SetShakeScale();
 
+	float scaleMultiplier = 2.0f;
+
 	// ランダムな縦方向の振動を生成
-	float offsetY = (rand() % 50 / 50.0f - 0.5f) * shakeScale_;
+	float offsetY = (rand() % 50 / 50.0f - 0.1f) * scaleMultiplier * shakeScale_;
 
 	// プラスマイナスを切り替える（Y方向のみ）
 	float dummy = 0.0f; // 横方向は使わないのでダミー変数
@@ -52,8 +56,10 @@ Vector3 Shake::ApplyHorizontalShake()
 	// シェイクの強度を設定
 	SetShakeScale();
 
+	float scaleMultiplier = 2.0f;
+
 	// ランダムな横方向の振動を生成
-	float offsetX = (rand() % 50 / 50.0f - 0.5f) * shakeScale_;
+	float offsetX = (rand() % 50 / 50.0f - 0.1f) * scaleMultiplier * shakeScale_;
 
 	// プラスマイナスを切り替える（X方向のみ）
 	float dummy = 0.0f; // 縦方向は使わないのでダミー変数
