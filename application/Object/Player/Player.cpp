@@ -18,6 +18,7 @@ Player::Player()
     pEnemyManager_ = EnemyManager::GetInstance();
     pDraw2D_ = Draw2D::GetInstance();
     pInput_ = Input::GetInstance();
+    pRotateBoardManager_ = RotateBoardManager::GetInstance();
 }
 
 Player::~Player()
@@ -62,6 +63,7 @@ void Player::Initialize()
     pRotateBoard_ = new RotateBoard();
     pRotateBoard_->Initialize();
     pRotateBoard_->SetVertices(&vertices_);
+    pRotateBoard_->SetParentPosition(position_);
 }
 
 void Player::RunSetMask()
@@ -91,10 +93,15 @@ void Player::Update()
         radius_timeRelease_ = radius_current_;
         isAttack_ = true;
         pEnemyManager_->ChangeState(Enemy::State::Normal);
+        pRotateBoardManager_->SetLeaveFlag(true);
     }
     else
     {
-        if (pEasingBoxTemp_->GetIsEnd()) isAttack_ = false;
+        if (pEasingBoxTemp_->GetIsEnd())
+        {
+            isAttack_ = false;
+            pRotateBoardManager_->SetIsAttack(false);
+        }
         pEasingBoxResize_->Reset();
         pEasingBoxTemp_->Start();
         radius_current_ = (1.0f - pEasingBoxTemp_->Update()) * radius_timeRelease_ + pEasingBoxTemp_->Update() * radius_default_;

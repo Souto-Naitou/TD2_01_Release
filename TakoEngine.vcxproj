@@ -108,6 +108,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\Collision\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="application\GameSystem\EnemyManager\EnemyManager.cpp" />
     <ClCompile Include="application\GameSystem\EnemyPopSystem\EnemyPopSytem.cpp" />
+    <ClCompile Include="application\GameSystem\RotateBoardManager\RotateBoardManager.cpp" />
     <ClCompile Include="application\Helper\ImGuiTemplates\ImGuiTemplates.cpp" />
     <ClCompile Include="application\Object\.Base\BaseObject.cpp" />
     <ClCompile Include="application\Object\Core\Core.cpp" />
@@ -166,6 +167,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameSystem\BasePopSytem.h" />
     <ClInclude Include="application\GameSystem\EnemyManager\EnemyManager.h" />
     <ClInclude Include="application\GameSystem\EnemyPopSystem\EnemyPopSytem.h" />
+    <ClInclude Include="application\GameSystem\RotateBoardManager\RotateBoardManager.h" />
     <ClInclude Include="application\Helper\DefaultSettings.h" />
     <ClInclude Include="application\Helper\ImGuiTemplates\ImGuiTemplates.h" />
     <ClInclude Include="application\Helper\Shape.h" />
