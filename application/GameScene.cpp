@@ -140,10 +140,11 @@ void GameScene::Update()
     /// 各オブジェクトの更新処理呼出
     pPlayer_->Update();
     pCore_->Update();
-    pNestWallLeft_->Update();
-    pNestWallTop_->Update();
-    pNestWallRight_->Update();
-    pNestWallBottom_->Update();
+    if (pNestWallLeft_) pNestWallLeft_->Update();
+    if (pNestWallTop_) pNestWallTop_->Update();
+    if (pNestWallRight_) pNestWallRight_->Update();
+    if (pNestWallBottom_) pNestWallBottom_->Update();
+
     for (Enemy* ptr : enemyList_) ptr->Update();
 
     /// 当たり判定処理
@@ -168,13 +169,24 @@ void GameScene::Update()
         itr = enemyList_.erase(itr);
     }
 
+    /// 巣壁の削除処理
+    DeleteIf(&pNestWallLeft_);
+    DeleteIf(&pNestWallTop_);
+    DeleteIf(&pNestWallRight_);
+    DeleteIf(&pNestWallBottom_);
 
+    /// ゲームオーバー処理
+    if (!pNestWallLeft_ && !pNestWallTop_ && !pNestWallRight_ && !pNestWallBottom_)
+    {
+        // (遷移を追加するならここ)
+        SceneManager::GetInstance()->ChangeScene("gameover");
+    }
 
     // シーン遷移
-    if (Input::GetInstance()->TriggerKey(DIK_RETURN))
-    {
-        SceneManager::GetInstance()->ChangeScene("title");
-    }
+    //if (Input::GetInstance()->TriggerKey(DIK_RETURN))
+    //{
+    //    SceneManager::GetInstance()->ChangeScene("title");
+    //}
 }
 
 void GameScene::Draw()
@@ -192,10 +204,12 @@ void GameScene::Draw()
 
     pPlayer_->Draw();
     pCore_->Draw();
-    pNestWallLeft_->Draw();
-    pNestWallTop_->Draw();
-    pNestWallRight_->Draw();
-    pNestWallBottom_->Draw();
+
+    if (pNestWallLeft_) pNestWallLeft_->Draw();
+    if (pNestWallTop_) pNestWallTop_->Draw();
+    if (pNestWallRight_) pNestWallRight_->Draw();
+    if (pNestWallBottom_) pNestWallBottom_->Draw();
+
     for (Enemy* ptr : enemyList_) ptr->Draw();
 }
 
@@ -238,6 +252,7 @@ void GameScene::DebugWindow()
             enemy->SetIsDead(true);
         }
     }
+
 }
 
 void GameScene::MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset)
@@ -245,4 +260,14 @@ void GameScene::MakeWall(NestWall** _nestWall, std::string _id, int _width, int 
     *_nestWall = new NestWall(_id);
     (*_nestWall)->SetRect(_width, _height, _origin, _offset);
     (*_nestWall)->Initialize();
+}
+
+void GameScene::DeleteIf(NestWall** _nestWall)
+{
+    if (!*_nestWall) return;
+    if ((*_nestWall)->GetIsDead())
+    {
+        delete *_nestWall;
+        *_nestWall = nullptr;
+    }
 }

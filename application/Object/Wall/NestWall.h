@@ -23,11 +23,12 @@ public: /// 公開メソッド
     void                Draw();
 
 
-
     void                OnCollisionTrigger(const Collider* _collider);
+
     Collider*           GetCollider() { return &collider_; }
-    float               GetHPBarWidth() { return pHpBar_->GetWidth(); }
-    float               GetHPBarHeight() { return pHpBar_->GetHeight(); }
+    float               GetHPBarWidth()     const { return pHpBar_->GetWidth(); }
+    float               GetHPBarHeight()    const { return pHpBar_->GetHeight(); }
+    bool                GetIsDead()         const { return isDead_; }
 
 
 	void                SetHPBarPos(Vector2 _pos) { pHpBar_->SetPos(_pos); }
