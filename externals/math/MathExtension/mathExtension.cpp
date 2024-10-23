@@ -29,6 +29,18 @@ float Lerp(float _x, float _y, float _t)
 	return (1.0f - _t) * _x + _t * _y;
 }
 
+//Vector3 TransformNormal(const Vector3& _v, const Matrix4x4& _m)
+//{
+//	Vector3 result
+//	{
+//		_v.x * _m.m[0][0] + _v.y * _m.m[1][0] + _v.z * _m.m[2][0],
+//		_v.x * _m.m[0][1] + _v.y * _m.m[1][1] + _v.z * _m.m[2][1],
+//		_v.x * _m.m[0][2] + _v.y * _m.m[1][2] + _v.z * _m.m[2][2]
+//	};
+//
+//	return result;
+//}
+
 Vector3 Lerp(const Vector3& _vx, const Vector3& _vy, float _t)
 {
 	return (1.0f - _t) * _vx + _t * _vy;
