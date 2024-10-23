@@ -66,10 +66,11 @@ void Player::Initialize()
 	pCollisionManager_->RegisterCollider(&collider_);
 
 
-	/// 回転板の初期化
-	pRotateBoard_ = new RotateBoard();
-	pRotateBoard_->Initialize();
-	pRotateBoard_->SetVertices(&vertices_);
+    /// 回転板の初期化
+    pRotateBoard_ = new RotateBoard();
+    pRotateBoard_->Initialize();
+    pRotateBoard_->SetVertices(&vertices_);
+
 }
 
 void Player::RunSetMask()
