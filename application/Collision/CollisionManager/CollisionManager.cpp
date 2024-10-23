@@ -71,6 +71,8 @@ uint32_t CollisionManager::GetNewAttribute(std::string _id)
 
 void CollisionManager::DebugWindow()
 {
+#ifdef DEBUG
+
     ImGui::Text("判定回数 : %u回", countCheckCollision_);
     ImGui::Text("フィルターされた回数 : %u回", countWithoutFilter_ - countWithoutLighter);
     ImGui::Text("軽量化された回数 : %u回", countWithoutLighter - countCheckCollision_);
@@ -93,6 +95,9 @@ void CollisionManager::DebugWindow()
 
         ImGui::EndTable();
     }
+
+#endif // DEBUG
+
 }
 
 void CollisionManager::CheckCollisionPair(Collider* _colA, Collider* _colB)

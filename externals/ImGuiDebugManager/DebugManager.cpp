@@ -8,11 +8,13 @@
 
 DebugManager::DebugManager()
 {
+#ifdef DEBUG
     ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 6.0f);
     //ImGui::PushStyleVar(ImGuiStyleVar_TabRounding, 0.0f);
     ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.05f, 0.05f, 0.05f, 0.75f));
     //ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.8f, 0.1f, 0.1f, 0.75f));
     //ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.0f, 0.0f, 0.0f, 0.90f));
+#endif // DEBUG
 }
 
 DebugManager::~DebugManager()
@@ -22,6 +24,7 @@ DebugManager::~DebugManager()
 
 void DebugManager::DebugWindowOverall()
 {
+#ifdef DEBUG
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
 
     const float PAD = 10.0f;
@@ -46,6 +49,7 @@ void DebugManager::DebugWindowOverall()
         ImGui::ProgressBar(static_cast<float>(fps_) / 60.0f, ImVec2(0, 0), "");
     }
     ImGui::End();
+#endif // DEBUG
 }
 
 void DebugManager::MeasureFPS()
@@ -67,6 +71,7 @@ void DebugManager::MeasureFPS()
 
 void DebugManager::Window_ObjectList()
 {
+#ifdef DEBUG
     ImGui::PushID("WindowObjectList");
     if (ImGui::Begin("Objects"))
     {
@@ -105,6 +110,7 @@ void DebugManager::Window_ObjectList()
     }
     ImGui::End();
     ImGui::PopID();
+#endif // DEBUG
 }
 
 std::list<std::tuple<std::string, std::string, const std::function<void(void)>, bool>>::iterator
@@ -224,6 +230,7 @@ void DebugManager::DrawUI()
 
 void DebugManager::ChangeFont()
 {
+#ifdef DEBUG
     ImGuiIO& io = ImGui::GetIO();
 
     ImFontConfig fontcfg;
@@ -244,4 +251,5 @@ void DebugManager::ChangeFont()
 
     io.Fonts->Build();
     ImGui_ImplDX12_CreateDeviceObjects();
+#endif // DEBUG
 }

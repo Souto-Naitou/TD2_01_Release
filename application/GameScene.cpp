@@ -258,6 +258,8 @@ void GameScene::DrawImGui()
 
 void GameScene::DebugWindow()
 {
+#ifdef DEBUG
+
     if (ImGui::Checkbox("Enable Lag Reduction (beta)", &isEnableLighter_))
     {
         if (pPlayer_) pPlayer_->SetEnableLighter(isEnableLighter_);
@@ -288,7 +290,7 @@ void GameScene::DebugWindow()
             enemy->SetIsDead(true);
         }
     }
-
+#endif // DEBUG
 }
 
 void GameScene::MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset)

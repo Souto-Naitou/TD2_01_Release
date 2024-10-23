@@ -30,10 +30,12 @@ void Object3dBasic::Initialize(DX12Basic* dx12)
 
 void Object3dBasic::Update()
 {
-	
+
 	if (isDebug_)
 	{
+#ifdef DEBUG
 		viewProjectionMatrix_ = DebugCamera::GetInstance()->GetViewProjectionMat();
+#endif // DEBUG
 	} else
 	{
 		viewProjectionMatrix_ = camera_->GetViewMatrix() * camera_->GetProjectionMatrix();
@@ -100,7 +102,7 @@ void Object3dBasic::CreateRootSignature()
 
 	rootParameters[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // 定数バッファビューを使う
 	rootParameters[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX; // 頂点シェーダーで使う
-	rootParameters[1].Descriptor.ShaderRegister = 0; // レジスタ番号とバインド 
+	rootParameters[1].Descriptor.ShaderRegister = 0; // レジスタ番号とバインド
 
 	rootParameters[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // ディスクリプタテーブルを使う
 	rootParameters[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ピクセルシェーダーで使う
