@@ -55,6 +55,13 @@ public: /// 公開メソッド
     void SetVertices(const std::vector<Vector2>* _vertices);
 
 
+    /// <summary>
+    /// パディングを設定
+    /// </summary>
+	/// <param name="_padding"></param>
+	void SetPadding(int _padding) { padding_ = _padding; }
+
+
     void OnCollision(const Collider* _other);
 
 
