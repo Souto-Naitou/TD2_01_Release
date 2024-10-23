@@ -175,6 +175,16 @@ void GameScene::Update()
     {
         SceneManager::GetInstance()->ChangeScene("title");
     }
+    //clearへ(仮)
+    if (Input::GetInstance()->TriggerKey(DIK_1))
+    {
+        SceneManager::GetInstance()->ChangeScene("clear");
+    }
+    //gameoverへ(仮)
+    if (Input::GetInstance()->TriggerKey(DIK_2))
+    {
+        SceneManager::GetInstance()->ChangeScene("gameover");
+    }
 }
 
 void GameScene::Draw()
