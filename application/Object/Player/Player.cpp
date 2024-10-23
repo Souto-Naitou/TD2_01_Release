@@ -26,6 +26,7 @@ Player::~Player()
 {
 	DebugManager::GetInstance()->DeleteComponent("Player");
 	pCollisionManager_->DeleteCollider(&collider_);
+	if (pRotateBoard_) { delete pRotateBoard_; pRotateBoard_ = nullptr; }
 }
 
 void Player::Initialize()
@@ -140,7 +141,7 @@ void Player::Update()
 void Player::Draw()
 {
 	Vector4 color = { 0.7294118f, 0.345098f, 0.1764706f, 1.0f };
-	
+
 	for (int i = 0; i < resolution_ - 1; i++)
 	{
 		pDraw2D_->DrawLine(vertices_[i], vertices_[i + 1], color);
