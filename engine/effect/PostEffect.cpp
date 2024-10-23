@@ -103,6 +103,12 @@ void PostEffect::SetVignettePower(float power)
 	vignetteRedBloomParam_->power = power;
 }
 
+void PostEffect::SetVignetteRange(float range)
+{
+	vignetteParam_->range = range;
+	vignetteRedBloomParam_->range = range;
+}
+
 void PostEffect::SetBloomThreshold(float threshold)
 {
 	vignetteRedBloomParam_->threshold = threshold;
@@ -272,5 +278,6 @@ void PostEffect::CreateVignetteRedBloomParam()
 
 	// データの初期化
 	vignetteRedBloomParam_->power = 0.0f;
+	vignetteRedBloomParam_->range = 20.0f;
 	vignetteRedBloomParam_->threshold = 1.0f;
 }
