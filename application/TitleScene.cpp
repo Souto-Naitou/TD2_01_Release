@@ -66,6 +66,9 @@ void TitleScene::Initialize()
 	// bgm再生
 	bgmVH_ = Audio::GetInstance()->PlayWave(bgmSH_, true, 0.3f);
 
+	PostEffect::GetInstance()->SetBloomThreshold(0.35f);
+	PostEffect::GetInstance()->SetVignettePower(0.f);
+
 	// 色を設定
 	red_ = 0xFF;
 	green_ = 0xFF;

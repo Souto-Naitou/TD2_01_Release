@@ -74,6 +74,10 @@ private: /// 非公開データ
     bool                isDebug_            = false;
     uint32_t            bgmSH_              = 0xFFFFFFFF;
 	uint32_t            bgmVH_              = 0xFFFFFFFF;
+    float               vignettePower       = 0.f;
+	float               vignettePowerMax    = 0.5f;
+    float               vignetteRange       = 50.0f;
+	float               vignetteRangeMax    = 17.0f;
 
 private: /// 他オブジェクトのデータ
     CollisionManager*   pCollisionManager_  = nullptr;

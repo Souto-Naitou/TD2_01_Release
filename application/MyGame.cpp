@@ -29,9 +29,6 @@ void MyGame::Initialize()
 	SceneManager::GetInstance()->ChangeScene("title", 0.0f);
     DebugManager::GetInstance()->ChangeFont();
 
-	// PostEffectの初期化
-	PostEffect::GetInstance()->SetVignettePower(vignettePower);
-	PostEffect::GetInstance()->SetVignetteRange(vignetteRange);
 }
 
 void MyGame::Finalize()
