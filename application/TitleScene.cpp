@@ -14,10 +14,11 @@
 
 #define PI 3.14159265f
 
-#ifdef _DEBUG
+#ifdef DEBUG
 #include"ImGui.h"
+#endif // DEBUG
+
 #include "DebugCamera.h"
-#endif
 
 float easeOutBounce(float t) {
 	if (t < 1 / 2.75f) {
@@ -39,10 +40,10 @@ float easeOutBounce(float t) {
 
 void TitleScene::Initialize()
 {
-#ifdef _DEBUG
+
 	DebugCamera::GetInstance()->Initialize();
 	DebugCamera::GetInstance()->Set2D();
-#endif
+
 
 	/// ================================== ///
 	///              初期化処理              ///
@@ -71,7 +72,7 @@ void TitleScene::Initialize()
 	green_ = 0xFF;
 	blue_ = 0xFF;
 	alpha_ = 0xFF;
-	
+
 	unsigned int offset = 20;
 
 	vertices_.push_back(Vector2(offset, offset));
@@ -100,6 +101,7 @@ void TitleScene::Update()
 		Draw2D::GetInstance()->SetDebug(!Draw2D::GetInstance()->GetDebug());
 		isDebug_ = !isDebug_;
 	}
+#endif
 
 	/// ================================== ///
 	///              更新処理               ///
@@ -118,7 +120,6 @@ void TitleScene::Update()
 	if (isDebug_) {
 		DebugCamera::GetInstance()->Update();
 	}
-#endif
 
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
@@ -132,7 +133,7 @@ void TitleScene::Draw()
 	/// ================================== ///
 	///              描画処理               ///
 	/// ================================== ///
-	
+
 	// 背景
 	Draw2D::GetInstance()->DrawBox(
 		Vector2(DefaultSettings::kGameScenePosX, DefaultSettings::kGameScenePosY),
@@ -141,7 +142,7 @@ void TitleScene::Draw()
 	);
 
 	pRotateBoard_->Draw();
-	
+
 	//------------------背景Spriteの描画------------------//
 	// スプライト共通描画設定
 	SpriteBasic::GetInstance()->SetCommonRenderSetting();

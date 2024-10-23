@@ -3,9 +3,7 @@
 #include "Logger.h"
 #include "Camera.h"
 
-#ifdef _DEBUG
 #include "DebugCamera.h"
-#endif
 
 Object3dBasic* Object3dBasic::instance_ = nullptr;
 
@@ -33,9 +31,7 @@ void Object3dBasic::Update()
 
 	if (isDebug_)
 	{
-#ifdef DEBUG
 		viewProjectionMatrix_ = DebugCamera::GetInstance()->GetViewProjectionMat();
-#endif // DEBUG
 	} else
 	{
 		viewProjectionMatrix_ = camera_->GetViewMatrix() * camera_->GetProjectionMatrix();

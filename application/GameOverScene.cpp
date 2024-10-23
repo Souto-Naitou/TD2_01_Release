@@ -12,8 +12,8 @@
 
 #ifdef _DEBUG
 #include"ImGui.h"
-#include "DebugCamera.h"
 #endif
+#include "DebugCamera.h"
 
 void GameOverScene::Initialize()
 {
@@ -56,6 +56,7 @@ void GameOverScene::Update()
 		Draw2D::GetInstance()->SetDebug(!Draw2D::GetInstance()->GetDebug());
 		isDebug_ = !isDebug_;
 	}
+#endif
 
 	/// ================================== ///
 	///              更新処理               ///
@@ -70,7 +71,6 @@ void GameOverScene::Update()
 	if (isDebug_) {
 		DebugCamera::GetInstance()->Update();
 	}
-#endif
 
 
 
@@ -91,7 +91,7 @@ void GameOverScene::Draw()
 		Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
 		0.0f, Vector4(0.01f, 0.01f, 0.01f, 1.0f)
 	);
-	
+
 	//------------------背景Spriteの描画------------------//
 	// スプライト共通描画設定
 	SpriteBasic::GetInstance()->SetCommonRenderSetting();

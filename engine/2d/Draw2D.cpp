@@ -31,7 +31,7 @@ void Draw2D::Initialize(DX12Basic* dx12)
 	triangleData_ = new TriangleData();
 	boxData_ = new BoxData();
 	lineData_ = new LineData();
-	
+
 	// 三角形の頂点データを生成
 	CreateTriangleVertexData(triangleData_);
 
@@ -54,12 +54,6 @@ void Draw2D::Finalize()
 
 	lineData_->vertexBuffer->Release();
 
-
-	if (instance_ != nullptr)
-	{
-		delete instance_;
-		instance_ = nullptr;
-	}
 }
 
 void Draw2D::Update()
