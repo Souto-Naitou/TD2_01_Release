@@ -45,7 +45,8 @@ void GameOverScene::Initialize()
 
 void GameOverScene::Finalize()
 {
-
+	delete GameOversprite_;
+	delete Spacesprite_;
 }
 
 void GameOverScene::Update()

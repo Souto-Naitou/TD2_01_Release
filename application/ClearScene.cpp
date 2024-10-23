@@ -45,7 +45,8 @@ void ClearScene::Initialize()
 
 void ClearScene::Finalize()
 {
-
+	delete Clearsprite_;
+	delete Spacesprite_;
 }
 
 void ClearScene::Update()
