@@ -9,6 +9,7 @@
 #include "Object/RotateBoard/RotateBoard.h"
 #include "Collision/Collider/Collider.h"
 #include "GameSystem/EnemyManager/EnemyManager.h"
+#include "GameSystem/RotateBoardManager/RotateBoardManager.h"
 
 #include <vector>
 #include <chrono>
@@ -45,16 +46,17 @@ private:
     size_t          resolution_                 = 4u;
     bool            isAttack_                   = false;
 
-    std::vector<Vector2>                    vertices_           = {};
-    std::chrono::system_clock::time_point   startTime_          = {};
-    std::unique_ptr<Easing>                 pEasingBoxResize_   = nullptr;
-    std::unique_ptr<Easing>                 pEasingBoxTemp_     = nullptr;
+    std::vector<Vector2>                    vertices_               = {};
+    std::chrono::system_clock::time_point   startTime_              = {};
+    std::unique_ptr<Easing>                 pEasingBoxResize_       = nullptr;
+    std::unique_ptr<Easing>                 pEasingBoxTemp_         = nullptr;
 
 private: /// 他オブジェクトから借りるデータ
-    CollisionManager*                       pCollisionManager_  = nullptr;
-    EnemyManager*                           pEnemyManager_      = nullptr;
-    Draw2D*                                 pDraw2D_            = nullptr;
-    Input*                                  pInput_             = nullptr;
+    CollisionManager*                       pCollisionManager_      = nullptr;
+    EnemyManager*                           pEnemyManager_          = nullptr;
+    RotateBoardManager*                     pRotateBoardManager_    = nullptr;
+    Draw2D*                                 pDraw2D_                = nullptr;
+    Input*                                  pInput_                 = nullptr;
 
 private: /// 非公開メソッド
     void DebugWindow();
