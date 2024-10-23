@@ -36,6 +36,7 @@ GameScene::~GameScene()
 {
     DebugManager::GetInstance()->DeleteComponent("GameScene");
     pCollisionManager_->ClearColliderList();
+
 }
 
 void GameScene::Initialize()
@@ -95,8 +96,13 @@ void GameScene::Initialize()
 
 void GameScene::Finalize()
 {
-    delete pCore_; pCore_ = nullptr;
-    delete pNestWallLeft_; pNestWallLeft_ = nullptr;
+    SafeDelete(&pCore_);
+    SafeDelete(&pNestWallLeft_);
+    SafeDelete(&pNestWallTop_);
+    SafeDelete(&pNestWallRight_);
+    SafeDelete(&pNestWallBottom_);
+    SafeDelete(&pPlayer_);
+    SafeDelete(&pEnemyPopSystem_);
 
     for (Enemy* ptr : enemyList_)
     {
@@ -138,12 +144,13 @@ void GameScene::Update()
 
 
     /// 各オブジェクトの更新処理呼出
-    pPlayer_->Update();
-    pCore_->Update();
-    pNestWallLeft_->Update();
-    pNestWallTop_->Update();
-    pNestWallRight_->Update();
-    pNestWallBottom_->Update();
+    if (pPlayer_)           pPlayer_->Update();
+    if (pCore_)             pCore_->Update();
+    if (pNestWallLeft_)     pNestWallLeft_->Update();
+    if (pNestWallTop_)      pNestWallTop_->Update();
+    if (pNestWallRight_)    pNestWallRight_->Update();
+    if (pNestWallBottom_)   pNestWallBottom_->Update();
+
     for (Enemy* ptr : enemyList_) ptr->Update();
 
     /// 当たり判定処理
@@ -153,8 +160,10 @@ void GameScene::Update()
     /// PopSystem
     if (isPop_)
     {
-        pEnemyPopSystem_->SpawnFromCSV(enemyList_, pPlayer_, isEnableLighter_, e2eBouncePower_);
+        if (pPlayer_ && pEnemyPopSystem_)
+            pEnemyPopSystem_->SpawnFromCSV(enemyList_, pPlayer_, isEnableLighter_, e2eBouncePower_);
     }
+
 
     /// Delete処理ここから
     for (std::list<Enemy*>::iterator itr = enemyList_.begin(); itr != enemyList_.end();)
@@ -168,13 +177,34 @@ void GameScene::Update()
         itr = enemyList_.erase(itr);
     }
 
+    /// 巣壁の削除処理
+    DeleteIf(&pNestWallLeft_);
+    DeleteIf(&pNestWallTop_);
+    DeleteIf(&pNestWallRight_);
+    DeleteIf(&pNestWallBottom_);
 
+    /// コアの削除処理
+    DeleteIf(&pCore_);
+
+
+    /// ゲームクリア処理
+    if (!pNestWallLeft_ && !pNestWallTop_ && !pNestWallRight_ && !pNestWallBottom_)
+    {
+        // (遷移を追加するならここ)
+        SceneManager::GetInstance()->ChangeScene("gameclear");
+    }
+
+    if (!pCore_)
+    {
+        // (遷移を追加するならここ)
+        SceneManager::GetInstance()->ChangeScene("gameover");
+    }
 
     // シーン遷移
-    if (Input::GetInstance()->TriggerKey(DIK_RETURN))
-    {
-        SceneManager::GetInstance()->ChangeScene("title");
-    }
+    //if (Input::GetInstance()->TriggerKey(DIK_RETURN))
+    //{
+    //    SceneManager::GetInstance()->ChangeScene("title");
+    //}
 }
 
 void GameScene::Draw()
@@ -187,15 +217,17 @@ void GameScene::Draw()
     pDraw2D_->DrawBox(
         Vector2(DefaultSettings::kGameScenePosX, DefaultSettings::kGameScenePosY),
         Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
-        0.0f, Vector4(0.01f, 0.01f, 0.01f, 1.0f)
+        Vector4(0.01f, 0.01f, 0.01f, 1.0f)
     );
 
-    pPlayer_->Draw();
-    pCore_->Draw();
-    pNestWallLeft_->Draw();
-    pNestWallTop_->Draw();
-    pNestWallRight_->Draw();
-    pNestWallBottom_->Draw();
+    if (pPlayer_)           pPlayer_->Draw();
+    if (pCore_)             pCore_->Draw();
+
+    if (pNestWallLeft_)     pNestWallLeft_->Draw();
+    if (pNestWallTop_)      pNestWallTop_->Draw();
+    if (pNestWallRight_)    pNestWallRight_->Draw();
+    if (pNestWallBottom_)   pNestWallBottom_->Draw();
+
     for (Enemy* ptr : enemyList_) ptr->Draw();
 }
 
@@ -210,8 +242,8 @@ void GameScene::DebugWindow()
 {
     if (ImGui::Checkbox("Enable Lag Reduction (beta)", &isEnableLighter_))
     {
-        pPlayer_->SetEnableLighter(isEnableLighter_);
-        pCore_->SetEnableLighter(isEnableLighter_);
+        if (pPlayer_) pPlayer_->SetEnableLighter(isEnableLighter_);
+        if (pCore_) pCore_->SetEnableLighter(isEnableLighter_);
         for (Enemy* enemy : enemyList_)
         {
             enemy->SetEnableLighter(isEnableLighter_);
@@ -238,6 +270,7 @@ void GameScene::DebugWindow()
             enemy->SetIsDead(true);
         }
     }
+
 }
 
 void GameScene::MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset)

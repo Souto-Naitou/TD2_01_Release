@@ -8,13 +8,14 @@
 
 Core::Core()
 {
-    pCollisionManager = CollisionManager::GetInstance();
+    pCollisionManager_ = CollisionManager::GetInstance();
     DebugManager::GetInstance()->SetComponent("Core", std::bind(&Core::DebugWindow, this));
 }
 
 Core::~Core()
 {
     DebugManager::GetInstance()->DeleteComponent("Core");
+    pCollisionManager_->DeleteCollider(&collider_);
 }
 
 void Core::Initialize()
@@ -43,7 +44,7 @@ void Core::Initialize()
     collider_.SetColliderID("Core");
 
     // アトリビュートの生成・登録
-    collider_.SetAttribute(pCollisionManager->GetNewAttribute("Core"));
+    collider_.SetAttribute(pCollisionManager_->GetNewAttribute("Core"));
 
     // OnCollision関数を登録
     collider_.SetOnCollision(std::bind(&Core::OnCollision, this, std::placeholders::_1));
@@ -58,16 +59,17 @@ void Core::Initialize()
     collider_.SetEnableLighter(false);
 
     // Colliderの登録
-    pCollisionManager->RegisterCollider(&collider_);
+    pCollisionManager_->RegisterCollider(&collider_);
 }
 
 void Core::RunSetMask()
 {
-    collider_.SetMask(pCollisionManager->GetNewMask(collider_.GetColliderID(), "Player", "NestWall"));
+    collider_.SetMask(pCollisionManager_->GetNewMask(collider_.GetColliderID(), "Player", "NestWall"));
 }
 
 void Core::Update()
 {
+    if (hp_ <= 0) isDead_ = true;
 }
 
 void Core::Draw()

@@ -23,6 +23,7 @@ Player::Player()
 Player::~Player()
 {
     DebugManager::GetInstance()->DeleteComponent("Player");
+    pCollisionManager_->DeleteCollider(&collider_);
 }
 
 void Player::Initialize()
