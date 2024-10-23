@@ -15,12 +15,13 @@ NestWall::NestWall(std::string _ID)
 NestWall::~NestWall()
 {
     DebugManager::GetInstance()->DeleteComponent(objectID_.c_str());
+    pCollisionManager_->DeleteCollider(&collider_);
 }
 
 void NestWall::Initialize()
 {
     // 仮HP
-    hp_ = 100u;
+    hp_ = 5u;
     collider_.SetColliderID("NestWall");
     collider_.SetAttribute(pCollisionManager_->GetNewAttribute("NestWall"));
     pCollisionManager_->RegisterCollider(&collider_);

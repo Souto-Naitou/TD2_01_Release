@@ -28,5 +28,5 @@ public:
 private:
     Rect2 boxCore_;
     Collider collider_;
-    CollisionManager* pCollisionManager; // シングルトンインスタンス
+    CollisionManager* pCollisionManager_; // シングルトンインスタンス
 };
