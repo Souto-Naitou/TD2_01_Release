@@ -128,6 +128,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\io\Input.cpp" />
     <ClCompile Include="engine\func\commonFunc\Logger.cpp" />
     <ClCompile Include="application\GameScene.cpp" />
+    <ClCompile Include="externals\DirectXTex\SelectScene.cpp" />
     <ClCompile Include="externals\easing\CSVLoader.cpp" />
     <ClCompile Include="externals\easing\EaseInterpolation.cpp" />
     <ClCompile Include="externals\easing\Easing.cpp" />
@@ -211,6 +212,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\TitleScene.h" />
     <ClInclude Include="engine\scene\SceneManager.h" />
     <ClInclude Include="application\SceneFactory.h" />
+    <ClInclude Include="externals\DirectXTex\SelectScene.h" />
     <ClInclude Include="externals\easing\CSVLoader.h" />
     <ClInclude Include="externals\easing\csvStructure\CSVData.h" />
     <ClInclude Include="externals\easing\Easing.h" />

@@ -302,11 +302,14 @@
     <ClCompile Include="engine\imgui\ImGuiManager.cpp">
       <Filter>ソース ファイル\engine\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="externals\DirectXTex\SelectScene.cpp">
+      <Filter>ソース ファイル\application\scene</Filter>
+    </ClCompile>
     <ClCompile Include="ClearScene.cpp">
-      <Filter>ソース ファイル\engine\scene</Filter>
+      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="GameOverScene.cpp">
-      <Filter>ソース ファイル\engine\scene</Filter>
+      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -494,6 +497,9 @@
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="GameOverScene.h">
+      <Filter>ヘッダー ファイル\application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\DirectXTex\SelectScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
   </ItemGroup>
