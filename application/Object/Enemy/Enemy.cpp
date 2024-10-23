@@ -39,11 +39,11 @@ void Enemy::Initialize(std::string _idx)
     ellipseAB_ = { 20.0f ,10.0f };              // ax^2 + by^2 = 1
 
 
-    collider_.SetColliderID("Enemy");                       // コライダーのID
-    moveSpeed_          = 1.0f;                             // 移動スピード
-    moveSpeed_sucked_   = 10.0f;                            // 吸い込み時加算スピード
-    hp_                 = 3;                                // HP
-    color_              = { 1.0f, 0.0f, 0.0f, 1.0f };       // 色
+    collider_.SetColliderID("Enemy");                                   // コライダーのID
+    moveSpeed_          = 1.0f;                                         // 移動スピード
+    moveSpeed_sucked_   = 10.0f;                                        // 吸い込み時加算スピード
+    hp_                 = 3;                                            // HP
+    color_              = { 0.7215686f, 0.0f, 0.1215686f, 1.0f };       // 色
 
     /// コライダーの設定
     collider_.SetOwner(this);
@@ -90,7 +90,7 @@ void Enemy::Update()
     if (hp_ <= 0) isDead_ = true;
 
     // Playerに攻撃されたら色を変更
-    if (isBounce_) color_ = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+    //if (isBounce_) color_ = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
     if (state_ == State::Normal) suctionPower_ = 0.0f;
 

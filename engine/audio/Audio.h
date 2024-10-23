@@ -51,7 +51,7 @@ public:
 	static Audio* GetInstance();
 
 	// サウンドの最大数
-	static const int kMaxSoundNum = 256;
+	static const int kMaxSoundNum = 3000;
 
 	/// <summary>
 	/// 初期化

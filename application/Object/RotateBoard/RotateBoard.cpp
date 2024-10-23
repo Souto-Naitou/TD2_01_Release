@@ -217,13 +217,14 @@ void RotateBoard::DrawCourse()
 
 void RotateBoard::DrawBoardLine()
 {
+	Vector4 color = Vector4(0.298039f, 0.2313725f, 0.8117647f, 1.0f);
     if (points_[0].first != points_[1].first)
     {
-        pDraw2D_->DrawLine(points_[0].second, course_[points_[1].first], Vector4(0.0f, 0.0f, 1.0f, 1.0f));
-        pDraw2D_->DrawLine(points_[1].second, course_[points_[1].first], Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+        pDraw2D_->DrawLine(points_[0].second, course_[points_[1].first], color);
+        pDraw2D_->DrawLine(points_[1].second, course_[points_[1].first], color);
     }
     else
     {
-        pDraw2D_->DrawLine(points_[0].second, points_[1].second, Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+        pDraw2D_->DrawLine(points_[0].second, points_[1].second, color);
     }
 }

@@ -3,6 +3,7 @@
 #include "Audio.h"
 #include "TextureManager.h"
 #include "DebugCamera.h"
+#include "PostEffect.h"
 
 #include "Helper/DefaultSettings.h"
 #include "Object/Player/Player.h"
@@ -49,6 +50,9 @@ void GameScene::Initialize()
     /// ================================== ///
     ///              初期化処理              ///
     /// ================================== ///
+
+	// ポストエフェクトの設定
+    PostEffect::GetInstance()->SetBloomThreshold(0.35f);
 
 	// サウンドの読み込み
 	bgmSH_ = Audio::GetInstance()->LoadWaveFile("bgm/gameBGM.wav");
