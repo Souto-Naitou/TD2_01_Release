@@ -75,14 +75,19 @@ void Audio::Update()
 				voiceData.second->DestroyVoice();
 				voiceData.second = nullptr;
 				
-				//voiceDatas_.erase(voiceData.first);
 			}
 		}
 	}
 }
 
-uint32_t Audio::LoadWaveFile(const char* filename)
+uint32_t Audio::LoadWaveFile(const std::string& filename)
 {	
+	// ファイル名の重複チェック
+	if (std::find(soundNames_.begin(), soundNames_.end(), filename) != soundNames_.end())
+	{
+		return 0;
+	}
+
 	// サウンドデータの取得
 	SoundData& soundData = soundDatas_[nextSoundIndex_];
 
@@ -235,7 +240,12 @@ uint32_t Audio::PlayWave(uint32_t soundDataHandle, float volume)
 
 void Audio::StopWave(uint32_t voiceHandle)
 {
-	voiceDatas_.at(voiceHandle)->Stop();
+	if (voiceDatas_.find(voiceHandle) != voiceDatas_.end()) {
+		voiceDatas_.at(voiceHandle)->Stop();
+	} else {
+		return;
+	}
+
 }
 
 bool Audio::IsPlaying(uint32_t voiceHandle)
