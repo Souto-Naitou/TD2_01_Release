@@ -7,6 +7,7 @@ static const int KERNEL_SIZE = 30;
 struct VignetteRedBloomParam
 {
     float power;
+    float range;
     float threshold;
 };
 
@@ -67,7 +68,7 @@ float3 VignetteRed(float4 color, float2 texCoord)
 {
     float2 correct = texCoord * (1.0f - texCoord.xy);
     
-    float vignette = correct.x * correct.y * 20.0f;
+    float vignette = correct.x * correct.y * gVignetteRedBloomParam.range;
     
     vignette = saturate(pow(vignette, gVignetteRedBloomParam.power));
     
@@ -87,9 +88,9 @@ float4 main(VertexShaderOutput input) : SV_TARGET
     
     float4 bloomColor = GaussianBlur(input.texCoord, texSize, float2(1.0f, 0.0f)) + GaussianBlur(input.texCoord, texSize, float2(0.0f, 1.0f));
     
-    bloomColor.rgb += output.color.rgb;
-    
     float3 VignetteColor = VignetteRed(bloomColor, input.texCoord);
+    
+    bloomColor.rgb += output.color.rgb;
 
     bloomColor.xyz += VignetteColor;
     

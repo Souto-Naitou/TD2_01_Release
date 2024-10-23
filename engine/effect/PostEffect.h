@@ -24,11 +24,13 @@ public: // メンバ関数
 	struct VignetteParam
 	{
 		float power;
+		float range;
 	};
 
 	struct VignetteRedBloomParam
 	{
 		float power;
+		float range;
 		float threshold;
 	};
 
@@ -57,6 +59,8 @@ public: // メンバ関数
 	ID3D12Resource* GetRenderTextureResource() { return renderTextureResource_.Get(); }
 
 	void SetVignettePower(float power);
+
+	void SetVignetteRange(float range);
 
 	void SetBloomThreshold(float threshold);
 
