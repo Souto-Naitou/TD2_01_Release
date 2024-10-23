@@ -139,14 +139,14 @@ void Player::Update()
 
 void Player::Draw()
 {
-	Vector4 white = { 1.0f, 1.0f, 1.0f, 1.0f };
-
+	Vector4 color = { 0.7294118f, 0.345098f, 0.1764706f, 1.0f };
+	
 	for (int i = 0; i < resolution_ - 1; i++)
 	{
-		pDraw2D_->DrawLine(vertices_[i], vertices_[i + 1], white);
+		pDraw2D_->DrawLine(vertices_[i], vertices_[i + 1], color);
 	}
 
-	pDraw2D_->DrawLine(vertices_[resolution_ - 1], vertices_[0], white);
+	pDraw2D_->DrawLine(vertices_[resolution_ - 1], vertices_[0], color);
 
 	pRotateBoard_->Draw();
 }

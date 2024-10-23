@@ -81,8 +81,11 @@ void Core::Update()
 
 void Core::Draw()
 {
+	//Vector4 color = Vector4(0.666667f, 0.6901961f, 0.0196078f, 1.0f); // 黄色
+    Vector4 color = { 0.7686275f, 0.309804f, 0.0862745f, 1.0f }; 
+
     Rect2 coreDrawn = boxCore_ + position_;
-    Draw2D::GetInstance()->DrawBox(coreDrawn.LeftTop(), Vector2(coreDrawn.GetSize(), coreDrawn.GetSize()), Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+    Draw2D::GetInstance()->DrawBox(coreDrawn.LeftTop(), Vector2(coreDrawn.GetSize(), coreDrawn.GetSize()), color);
 }
 
 void Core::OnCollision(const Collider* _other)
