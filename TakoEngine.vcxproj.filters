@@ -302,6 +302,9 @@
     <ClCompile Include="externals\Timer\Timer.cpp">
       <Filter>ソース ファイル\application\External</Filter>
     </ClCompile>
+    <ClCompile Include="application\GameSystem\RotateBoardManager\RotateBoardManager.cpp">
+      <Filter>ソース ファイル\application\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\func\mathFunc\Mat4x4Func.h">
@@ -483,6 +486,9 @@
     </ClInclude>
     <ClInclude Include="externals\Timer\Timer.h">
       <Filter>ヘッダー ファイル\application\External</Filter>
+    </ClInclude>
+    <ClInclude Include="application\GameSystem\RotateBoardManager\RotateBoardManager.h">
+      <Filter>ヘッダー ファイル\application\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
