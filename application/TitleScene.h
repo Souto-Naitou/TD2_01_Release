@@ -3,6 +3,7 @@
 #include"Sprite.h"
 #include <vector>
 #include"Vector2.h"
+#include "Object/RotateBoard/RotateBoard.h"
 
 class TitleScene : public BaseScene
 {
@@ -34,12 +35,63 @@ public: // メンバ関数
 	void DrawImGui() override;
 
 private: // メンバ変数
+	//Sprite作成
+	Sprite* Titlesprite_ = new Sprite();
+	Sprite* Spacesprite_ = new Sprite();
+
+	RotateBoard* pRotateBoard_ = nullptr;
+
+	std::vector<Vector2> vertices_;
+
+	int originalWidth_ = 600;
+	int originalHeight_ = 250;
+
+	int width_;
+	int height_;
+
+	int x1_;
+	int x2_;
+	int y1_;
+	int y2_;
+
+	// 
+	static inline const float kDuration = 3.0f;
+
+	// 経過時間カウント
+	float counter_ = 0.0f;
+
+	// 増加フラグ
+	bool isIncreasing_ = true;
 
 	// SoundHandle
 	uint32_t bgmSH_;
 	uint32_t bgmVH_;
 
 	uint32_t selectSeSH_;
+	// uiテクスチャの色
+	int uiColor_ = {};
+
+	int red_;
+	int green_;
+	int blue_;
+	int alpha_;
 
 	bool isDebug_ = false;
+
+	// メンバ関数
+
+	// UIの点滅処理
+	void UpdateUI();
+
+	// 色を設定
+	unsigned int GetColor(int red, int green, int blue, int alpha);
+
+	/// <summary>
+	/// 四角形の座標を設定
+	/// </summary>
+	void InitRectPostion();
+
+	void UpdateRectPostition();
+
+	void SetRectPosition();
 };

@@ -26,6 +26,11 @@ Player::~Player()
 {
 	DebugManager::GetInstance()->DeleteComponent("Player");
 	pCollisionManager_->DeleteCollider(&collider_);
+	if (pRotateBoard_) { delete pRotateBoard_; pRotateBoard_ = nullptr; }
+	// chargeSE停止
+    if (chargeVH_ != 0xFFFFFFFF)
+		Audio::GetInstance()->StopWave(chargeVH_);
+	chargeVH_ = 0xFFFFFFFF;
 }
 
 void Player::Initialize()
@@ -66,10 +71,11 @@ void Player::Initialize()
 	pCollisionManager_->RegisterCollider(&collider_);
 
 
-	/// 回転板の初期化
-	pRotateBoard_ = new RotateBoard();
-	pRotateBoard_->Initialize();
-	pRotateBoard_->SetVertices(&vertices_);
+    /// 回転板の初期化
+    pRotateBoard_ = new RotateBoard();
+    pRotateBoard_->Initialize();
+    pRotateBoard_->SetVertices(&vertices_);
+
 }
 
 void Player::RunSetMask()
@@ -87,6 +93,7 @@ void Player::Update()
 			chargeVH_ = Audio::GetInstance()->PlayWave(chargeSH_, false, 0.15f);
 
 		isAttack_ = false;
+		isPusing_ = true;
 		if (radius_current_ > radius_min_)
 		{
 			pEasingBoxTemp_->Reset();
@@ -108,6 +115,7 @@ void Player::Update()
 		latestAttackMultiply_ = pEasingBoxResize_->GetCurrentT();
 		radius_timeRelease_ = radius_current_;
 		isAttack_ = true;
+		isPusing_ = false;
 		pEnemyManager_->ChangeState(Enemy::State::Normal);
 	} else
 	{
@@ -140,7 +148,7 @@ void Player::Update()
 void Player::Draw()
 {
 	Vector4 color = { 0.7294118f, 0.345098f, 0.1764706f, 1.0f };
-	
+
 	for (int i = 0; i < resolution_ - 1; i++)
 	{
 		pDraw2D_->DrawLine(vertices_[i], vertices_[i + 1], color);

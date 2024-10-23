@@ -15,6 +15,8 @@
 #include "GameSystem/EnemyPopSystem/EnemyPopSytem.h"
 #include "externals/Timer/Timer.h"
 
+#include "Particle/ParticleSystem.h"
+
 #include <Vector2.h>
 #include <vector>
 
@@ -65,7 +67,7 @@ private: /// 非公開データ
     std::list<Enemy*>   enemyList_          = {};
     Timer               timer_              = {};
     bool                isEnableLighter_    = false;
-    bool                isPop_              = false;
+    bool                isPop_              = true;
     float               e2eBouncePower_     = 0.1f;
     float               e2rbBouncePower_    = 3.5f;
     bool                isDebugEnable_      = true;
@@ -82,6 +84,7 @@ private: /// 他オブジェクトのデータ
     EnemyManager*       pEnemyManager_      = nullptr;
     Input*              pInput_             = nullptr;
     Draw2D*             pDraw2D_            = nullptr;
+    ParticleSystem*     pParticleSystem_    = nullptr;
 
 private: /// 非公開メソッド
     void MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset);

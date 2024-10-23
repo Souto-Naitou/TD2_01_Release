@@ -75,6 +75,9 @@ void GameScene::Initialize()
     pCore_ = new Core();
     pCore_->Initialize();
 
+    pParticleSystem_ = new ParticleSystem();
+    pParticleSystem_->Initialize();
+
     uint32_t nestWallWidth = 40u;
 
     MakeWall(&pNestWallLeft_, "Left", nestWallWidth, DefaultSettings::kGameScreenHeight, { DefaultSettings::kGameScenePosX,DefaultSettings::kGameScenePosY }, 2);
@@ -113,6 +116,7 @@ void GameScene::Finalize()
 	// bgm再生停止
 	Audio::GetInstance()->StopWave(bgmVH_);
 
+    SafeDelete(&pParticleSystem_);
     SafeDelete(&pCore_);
     SafeDelete(&pNestWallLeft_);
     SafeDelete(&pNestWallTop_);
@@ -159,6 +163,8 @@ void GameScene::Update()
         EasingManager::GetInstance()->SetDisplayUI(isDebugEnable_);
     }
 
+    // パーティクルシステム更新処理呼び出し
+    if(pParticleSystem_ && pPlayer_->IsPusing())    pParticleSystem_->Update();
 
     /// 各オブジェクトの更新処理呼出
     if (pPlayer_)           pPlayer_->Update();
@@ -168,7 +174,7 @@ void GameScene::Update()
     if (pNestWallRight_)    pNestWallRight_->Update();
     if (pNestWallBottom_)   pNestWallBottom_->Update();
 
-    for (Enemy* ptr : enemyList_) ptr->Update();
+    for (Enemy* ptr : enemyList_) ptr->Update();   
 
     /// 当たり判定処理
     pCollisionManager_->CheckAllCollision();
@@ -217,7 +223,7 @@ void GameScene::Update()
     if (!pNestWallLeft_ && !pNestWallTop_ && !pNestWallRight_ && !pNestWallBottom_)
     {
         // (遷移を追加するならここ)
-        SceneManager::GetInstance()->ChangeScene("gameclear");
+        SceneManager::GetInstance()->ChangeScene("clear");
     }
 
     if (!pCore_)
@@ -248,7 +254,9 @@ void GameScene::Draw()
         Vector2(DefaultSettings::kGameScenePosX, DefaultSettings::kGameScenePosY),
         Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
         Vector4(0.01f, 0.01f, 0.01f, 1.0f)
-    );
+    );  
+
+    if(pParticleSystem_ && pPlayer_->IsPusing())    pParticleSystem_->Draw();
 
     if (pPlayer_)           pPlayer_->Draw();
     if (pCore_)             pCore_->Draw();
@@ -259,6 +267,9 @@ void GameScene::Draw()
     if (pNestWallBottom_)   pNestWallBottom_->Draw();
 
     for (Enemy* ptr : enemyList_) ptr->Draw();
+
+  
+
 }
 
 void GameScene::DrawImGui()
