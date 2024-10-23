@@ -9,6 +9,7 @@
 #include "Helper/DefaultSettings.h"
 #include "Object/Player/Player.h"
 #include "Object/RotateBoard/RotateBoard.h"
+#include "Audio.h"
 
 float Enemy::bouncePower_enemy_ = 0.25f;
 float Enemy::bouncePower_rotateBoard_ = 3.0f;
@@ -52,6 +53,10 @@ void Enemy::Initialize(std::string _idx)
     // Colliderにポインタを渡す
     collider_.SetOnCollision(std::bind(&Enemy::OnCollision, this, std::placeholders::_1));
     collider_.SetOnCollisionTrigger(std::bind(&Enemy::OnCollisionTrigger, this, std::placeholders::_1));
+
+	// サウンドの読み込み
+	hitWallSH_ = Audio::GetInstance()->LoadWaveFile("hit3.wav");
+	hitRotateBoardSH_ = Audio::GetInstance()->LoadWaveFile("hit.wav");
 }
 
 void Enemy::Update()
@@ -293,6 +298,14 @@ void Enemy::OnCollisionTrigger(const Collider* _other)
         acceleration_ = edge.Perpendicular().Normalize() * bouncePower_nestWall_;
 
         hp_--;
+
+		// ヒットサウンド再生
+		Audio::GetInstance()->PlayWave(hitWallSH_, 0.3f);
+    }
+
+    if (_other->GetColliderID() == "RotateBoard") {
+        // ヒットサウンド再生
+        Audio::GetInstance()->PlayWave(hitRotateBoardSH_, 0.3f);
     }
 }
 

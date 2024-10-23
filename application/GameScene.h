@@ -70,6 +70,8 @@ private: /// 非公開データ
     float               e2rbBouncePower_    = 3.5f;
     bool                isDebugEnable_      = true;
     bool                isDebug_            = false;
+    uint32_t            bgmSH_              = 0xFFFFFFFF;
+	uint32_t            bgmVH_              = 0xFFFFFFFF;
 
 private: /// 他オブジェクトのデータ
     CollisionManager*   pCollisionManager_  = nullptr;

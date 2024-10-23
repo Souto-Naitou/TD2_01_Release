@@ -4,6 +4,7 @@
 #include "Object3dBasic.h"
 #include "SpriteBasic.h"
 #include "Input.h"
+#include "Audio.h"
 #include "Draw2D.h"
 
 #ifdef _DEBUG
@@ -22,12 +23,19 @@ void TitleScene::Initialize()
 	///              初期化処理              ///
 	/// ================================== ///
 
+	// サウンドの読み込み
+	bgmSH_ = Audio::GetInstance()->LoadWaveFile("bgm/titleBGM.wav");
+	selectSeSH_ = Audio::GetInstance()->LoadWaveFile("title_space.wav");
 
+	// bgm再生
+	bgmVH_ = Audio::GetInstance()->PlayWave(bgmSH_, true, 0.3f);
 
 }
 
 void TitleScene::Finalize()
 {
+	// bgm再生停止
+	Audio::GetInstance()->StopWave(bgmVH_);
 
 }
 
@@ -45,8 +53,6 @@ void TitleScene::Update()
 
 
 
-
-
 	if (isDebug_) {
 		DebugCamera::GetInstance()->Update();
 	}
@@ -56,6 +62,7 @@ void TitleScene::Update()
 
 	if (Input::GetInstance()->TriggerKey(DIK_RETURN))
 	{
+		Audio::GetInstance()->PlayWave(selectSeSH_, false, 0.3f);
 		SceneManager::GetInstance()->ChangeScene("game");
 	}
 }
