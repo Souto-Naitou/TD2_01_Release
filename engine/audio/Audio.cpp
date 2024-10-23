@@ -94,7 +94,19 @@ uint32_t Audio::LoadWaveFile(const char* filename)
 
 	// wavファイルのヘッダーを読み込む
 	RiffHeader riff;
-	file.read(reinterpret_cast<char*>(&riff), sizeof(riff));
+	//file.read(reinterpret_cast<char*>(&riff), sizeof(riff));
+
+	do {
+		file.read(reinterpret_cast<char*>(&riff), sizeof(riff));
+
+		if (strncmp(riff.chunk.id, "RIFF", 4) == 0 && strncmp(riff.type, "WAVE", 4) == 0) {
+			break;  // 「RIFF WAVE」チャンクが見つかったので探索を停止する
+		}
+
+		// 「RIFF WAVE」チャンク以外をスキップする
+		file.seekg(riff.chunk.size, std::ios::cur);
+
+	} while (!file.eof());
 
 	if (strncmp(riff.chunk.id, "RIFF", 4) != 0 || strncmp(riff.type, "WAVE", 4) != 0)
 	{
@@ -102,7 +114,18 @@ uint32_t Audio::LoadWaveFile(const char* filename)
 	}
 
 	FormatChunk format = {};
-	file.read(reinterpret_cast<char*>(&format), sizeof(ChunkHeader));
+
+	do {
+		file.read(reinterpret_cast<char*>(&format), sizeof(ChunkHeader));
+
+		if (strncmp(format.chunk.id, "fmt ", 4) == 0) {
+			break;  // 「fmt 」チャンクが見つかったので、探索を停止する
+		}
+
+		// 「fmt 」チャンク以外のチャンクをスキップする
+		file.seekg(format.chunk.size, std::ios::cur);
+
+	} while (!file.eof());
 
 	if (strncmp(format.chunk.id, "fmt ", 4) != 0)
 	{
@@ -113,13 +136,17 @@ uint32_t Audio::LoadWaveFile(const char* filename)
 
 
 	ChunkHeader data;
-	file.read(reinterpret_cast<char*>(&data), sizeof(data));
-
-	if (strncmp(data.id, "JUNK", 4) == 0)
-	{
-		file.seekg(data.size, std::ios::cur);
+	do {
 		file.read(reinterpret_cast<char*>(&data), sizeof(data));
-	}
+
+		if (strncmp(data.id, "data", 4) == 0) {
+			break;  // 「data」チャンクが見つかったので、探索を停止する
+		}
+
+		// 「data」チャンク以外のチャンクをスキップする（例えば「JUNK」やその他のチャンク）
+		file.seekg(data.size, std::ios::cur);
+
+	} while (!file.eof());
 
 	if (strncmp(data.id, "data", 4) != 0)
 	{

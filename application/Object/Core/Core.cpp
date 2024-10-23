@@ -1,6 +1,7 @@
 #include "Core.h"
 
 #include "Draw2D.h"
+#include "Audio.h"
 #include "Helper/DefaultSettings.h"
 #include "Collision/CollisionManager/CollisionManager.h"
 #include "Helper/ImGuiTemplates/ImGuiTemplates.h"
@@ -49,6 +50,9 @@ void Core::Initialize()
     // OnCollision関数を登録
     collider_.SetOnCollision(std::bind(&Core::OnCollision, this, std::placeholders::_1));
 
+	// OnCollisionTrigger関数を登録
+	collider_.SetOnCollisionTrigger(std::bind(&Core::OnCollisionTrigger, this, std::placeholders::_1));
+
     // 衝突用座標の設定 (ラグ軽減用)
     collider_.SetPosition(position_);
 
@@ -60,6 +64,9 @@ void Core::Initialize()
 
     // Colliderの登録
     pCollisionManager_->RegisterCollider(&collider_);
+
+	// サウンドの読み込み
+	damegedSH_ = Audio::GetInstance()->LoadWaveFile("playerDamaged.wav");
 }
 
 void Core::RunSetMask()
@@ -86,6 +93,16 @@ void Core::OnCollision(const Collider* _other)
     }
 
     if (hp_ < 0) hp_ = 0;
+}
+
+void Core::OnCollisionTrigger(const Collider* _other)
+{
+    if (_other->GetColliderID() == "Enemy") {
+
+		// ダメージSE再生
+		Audio::GetInstance()->PlayWave(damegedSH_, false, 0.35f);
+
+    }
 }
 
 void Core::DebugWindow()
