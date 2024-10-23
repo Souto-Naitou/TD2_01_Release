@@ -213,13 +213,13 @@ void GameScene::Draw()
         Vector4(0.01f, 0.01f, 0.01f, 1.0f)
     );
 
-    pPlayer_->Draw();
-    pCore_->Draw();
+    if (pPlayer_)           pPlayer_->Draw();
+    if (pCore_)             pCore_->Draw();
 
-    if (pNestWallLeft_) pNestWallLeft_->Draw();
-    if (pNestWallTop_) pNestWallTop_->Draw();
-    if (pNestWallRight_) pNestWallRight_->Draw();
-    if (pNestWallBottom_) pNestWallBottom_->Draw();
+    if (pNestWallLeft_)     pNestWallLeft_->Draw();
+    if (pNestWallTop_)      pNestWallTop_->Draw();
+    if (pNestWallRight_)    pNestWallRight_->Draw();
+    if (pNestWallBottom_)   pNestWallBottom_->Draw();
 
     for (Enemy* ptr : enemyList_) ptr->Draw();
 }

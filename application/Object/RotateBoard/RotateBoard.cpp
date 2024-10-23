@@ -17,6 +17,8 @@ RotateBoard::~RotateBoard()
 {
     // RotateBoardのDebugWindowを消去
     DebugManager::GetInstance()->DeleteComponent("RotateBoard");
+    pCollisionManager_->DeleteCollider(&collider1_);
+    pCollisionManager_->DeleteCollider(&collider2_);
 }
 
 void RotateBoard::Initialize()
