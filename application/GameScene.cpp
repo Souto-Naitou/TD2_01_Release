@@ -199,7 +199,7 @@ void GameScene::Draw()
     pDraw2D_->DrawBox(
         Vector2(DefaultSettings::kGameScenePosX, DefaultSettings::kGameScenePosY),
         Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
-        0.0f, Vector4(0.01f, 0.01f, 0.01f, 1.0f)
+        Vector4(0.01f, 0.01f, 0.01f, 1.0f)
     );
 
     pPlayer_->Draw();
