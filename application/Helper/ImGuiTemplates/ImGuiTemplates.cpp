@@ -4,7 +4,7 @@
 
 void ImGuiTemplate::VariableTable(const std::string& _stringID, std::function<void()> _function)
 {
-#ifdef DEBUG
+#ifdef _DEBUG
     std::string id = _stringID + "_VARTABLE";
     ImGui::PushID(id.c_str());
     bool result = ImGui::BeginTable(_stringID.c_str(), 2, ImGuiTableFlags_Hideable | ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders);
