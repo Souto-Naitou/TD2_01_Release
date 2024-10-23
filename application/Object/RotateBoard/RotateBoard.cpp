@@ -11,7 +11,6 @@ RotateBoard::RotateBoard()
     DebugManager::GetInstance()->SetComponent("RotateBoard", std::bind(&RotateBoard::DebugWindow, this));
     pEasingEdgeMove = std::make_unique<Easing>("RotateBoard_EdgeMove");
     pDraw2D_ = Draw2D::GetInstance();
-    pRotateBoardManager_ = RotateBoardManager::GetInstance();
 }
 
 RotateBoard::~RotateBoard()
@@ -65,7 +64,6 @@ void RotateBoard::Update()
 
     uint32_t& numEdge1 = points_[0].first;
     uint32_t& numEdge2 = points_[1].first;
-
     size_t courseSize = course_.size();
     if (pEasingEdgeMove->GetIsEnd())
     {

@@ -4,8 +4,6 @@
 #include "Collision/Collider/Collider.h"
 #include "Collision/CollisionManager/CollisionManager.h"
 
-#include "GameSystem/RotateBoardManager/RotateBoardManager.h"
-
 #include "externals/easing/Easing.h"
 #include <Vector2.h>
 #include <Rect2.h>
@@ -60,9 +58,6 @@ public: /// 公開メソッド
     void OnCollision(const Collider* _other);
 
 
-    void SetParentPosition(const Vector2& _position) { parentPosition_ = _position; }
-
-
     const Vector2* GetVertices(int _idx) const
     {
         if (_idx == 1)
@@ -82,29 +77,23 @@ private: /// 非公開データ
     std::array<std::pair<uint32_t, Vector2>, 2> points_         = {};
     std::unique_ptr<Easing>                     pEasingEdgeMove = nullptr;
 
-    Collider                    collider1_                      = {};       // コライダー
-    Collider                    collider2_                      = {};
-    Rect2                       rect_                           = {};       // レクト
-    int32_t                     padding_                        = 0;        // 隙間
-    bool                        isDrawCourse_                   = false;    // コースを描画するかどうか
-    bool                        isDrawPoints_                   = false;    // 頂点を描画するかどうか
-    bool                        isCorner_                       = false;
-    float                       offset_                         = 0.0f;     // オフセット値
-    float                       t1                              = 0.0f;     // time1
-    float                       t2                              = 0.0f;     // time2
-    Vector2                     verticesCollider2_[2]           = {};       // コライダーにわたす頂点ベクトル
-    Vector2                     verticesCollider1_[2]           = {};       // コライダーにわたす頂点ベクトル
-
-    bool                        isLeave_                        = false;    // 離れられるか
-    bool                        isAttack_                       = false;    // プレイヤーが攻撃中か
-    Vector2                     originVertices_[2]              = {};       // オリジナルの頂点
-    Vector2                     parentPosition_                 = {};       // 親の位置
+    Collider                collider1_              = {};       // コライダー
+    Collider                collider2_              = {};
+    Rect2                   rect_                   = {};       // レクト
+    int32_t                 padding_                = 0;        // 隙間
+    bool                    isDrawCourse_           = false;    // コースを描画するかどうか
+    bool                    isDrawPoints_           = false;    // 頂点を描画するかどうか
+    bool                    isCorner_               = false;
+    float                   offset_                 = 0.0f;     // オフセット値
+    float                   t1                      = 0.0f;     // time1
+    float                   t2                      = 0.0f;     // time2
+    Vector2                 verticesCollider2_[2]   = {};       // コライダーにわたす頂点ベクトル
+    Vector2                 verticesCollider1_[2]   = {};       // コライダーにわたす頂点ベクトル
 
 private: /// 他オブジェクトから借りるデータ
-    CollisionManager*           pCollisionManager_              = nullptr;  // コリジョンマネージャ
-    const std::vector<Vector2>* parentVertices_                 = nullptr;  // 親の頂点
-    Draw2D*                     pDraw2D_                        = nullptr;  // 2D描画
-    RotateBoardManager*         pRotateBoardManager_            = nullptr;  // 回転板マネージャ
+    CollisionManager*           pCollisionManager_  = nullptr;  // コリジョンマネージャ
+    const std::vector<Vector2>* parentVertices_     = nullptr;  // 親の頂点
+    Draw2D*                     pDraw2D_            = nullptr;  // 2D描画
 
 private: /// 非公開メソッド
     void UpdateCourse();    // コースを更新

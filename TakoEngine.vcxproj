@@ -64,7 +64,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)application;$(ProjectDir)engine\effect;$(ProjectDir)engine\scene;$(ProjectDir)engine\audio;$(ProjectDir)engine\debug;$(ProjectDir)engine\math;$(ProjectDir)engine\func\mathFunc;$(ProjectDir)engine\func\commonFunc;$(ProjectDir)engine\io;$(ProjectDir)engine\base\DX12;$(ProjectDir)engine\base;$(ProjectDir)engine\3d;$(ProjectDir)engine\2d;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)application;$(ProjectDir)engine\effect;$(ProjectDir)engine\scene;$(ProjectDir)engine\audio;$(ProjectDir)engine\imgui;$(ProjectDir)engine\debug;$(ProjectDir)engine\math;$(ProjectDir)engine\func\mathFunc;$(ProjectDir)engine\func\commonFunc;$(ProjectDir)engine\io;$(ProjectDir)engine\base\DX12;$(ProjectDir)engine\base;$(ProjectDir)engine\3d;$(ProjectDir)engine\2d;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,7 +108,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\Collision\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="application\GameSystem\EnemyManager\EnemyManager.cpp" />
     <ClCompile Include="application\GameSystem\EnemyPopSystem\EnemyPopSytem.cpp" />
-    <ClCompile Include="application\GameSystem\RotateBoardManager\RotateBoardManager.cpp" />
     <ClCompile Include="application\Helper\ImGuiTemplates\ImGuiTemplates.cpp" />
     <ClCompile Include="application\Object\.Base\BaseObject.cpp" />
     <ClCompile Include="application\Object\Core\Core.cpp" />
@@ -121,10 +120,10 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\2d\Draw2D.cpp" />
     <ClCompile Include="engine\audio\Audio.cpp" />
     <ClCompile Include="engine\3d\Camera.cpp" />
-    <ClCompile Include="engine\debug\ImGuiManager.cpp" />
     <ClCompile Include="engine\base\DX12\D3DResourceLeakCheker.cpp" />
     <ClCompile Include="engine\base\DX12\DX12Basic.cpp" />
     <ClCompile Include="engine\effect\PostEffect.cpp" />
+    <ClCompile Include="engine\imgui\ImGuiManager.cpp" />
     <ClCompile Include="engine\io\Input.cpp" />
     <ClCompile Include="engine\func\commonFunc\Logger.cpp" />
     <ClCompile Include="application\GameScene.cpp" />
@@ -167,7 +166,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameSystem\BasePopSytem.h" />
     <ClInclude Include="application\GameSystem\EnemyManager\EnemyManager.h" />
     <ClInclude Include="application\GameSystem\EnemyPopSystem\EnemyPopSytem.h" />
-    <ClInclude Include="application\GameSystem\RotateBoardManager\RotateBoardManager.h" />
     <ClInclude Include="application\Helper\DefaultSettings.h" />
     <ClInclude Include="application\Helper\ImGuiTemplates\ImGuiTemplates.h" />
     <ClInclude Include="application\Helper\Shape.h" />
@@ -181,11 +179,11 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\2d\DebugCamera.h" />
     <ClInclude Include="engine\2d\Draw2D.h" />
     <ClInclude Include="engine\effect\PostEffect.h" />
+    <ClInclude Include="engine\imgui\ImGuiManager.h" />
     <ClInclude Include="engine\scene\AbstractSceneFactory.h" />
     <ClInclude Include="engine\scene\BaseScene.h" />
     <ClInclude Include="engine\audio\Audio.h" />
     <ClInclude Include="engine\3d\Camera.h" />
-    <ClInclude Include="engine\debug\ImGuiManager.h" />
     <ClInclude Include="engine\base\DX12\D3DResourceLeakCheker.h" />
     <ClInclude Include="engine\base\DX12\DX12Basic.h" />
     <ClInclude Include="engine\io\Input.h" />
@@ -305,7 +303,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>
     <ProjectReference Include="externals\imgui\imgui.vcxproj">
-      <Project>{ffa51982-471d-4530-909e-c8fb8fe4f342}</Project>
+      <Project>{74857b02-9813-41d3-b420-d3c3185e4470}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
