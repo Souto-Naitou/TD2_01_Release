@@ -176,6 +176,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\Object\Player\Player.h" />
     <ClInclude Include="application\Object\RotateBoard\RotateBoard.h" />
     <ClInclude Include="application\Object\Wall\NestWall.h" />
+    <ClInclude Include="application\TypeDefinish\Direction.h" />
     <ClInclude Include="engine\2d\DebugCamera.h" />
     <ClInclude Include="engine\2d\Draw2D.h" />
     <ClInclude Include="engine\effect\PostEffect.h" />

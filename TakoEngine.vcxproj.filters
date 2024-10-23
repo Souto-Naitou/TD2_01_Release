@@ -135,6 +135,9 @@
     <Filter Include="ソース ファイル\engine\imgui">
       <UniqueIdentifier>{c3dfd57e-1bcc-4fff-a86c-c9e38484bbe7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\application\TypeDefinish">
+      <UniqueIdentifier>{4d50405b-669b-463f-bfd8-54d7f49fba14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -483,6 +486,9 @@
     </ClInclude>
     <ClInclude Include="engine\imgui\ImGuiManager.h">
       <Filter>ヘッダー ファイル\engine\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="application\TypeDefinish\Direction.h">
+      <Filter>ヘッダー ファイル\application\TypeDefinish</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
