@@ -43,7 +43,7 @@ void GameOverScene::Initialize()
 	blue_ = 0xFF;
 	alpha_ = 0xFF;
 
-	PostEffect::GetInstance()->SetBloomThreshold(1.f);
+	PostEffect::GetInstance()->SetBloomThreshold(0.35f);
 	PostEffect::GetInstance()->SetVignettePower(0.f);
 }
 

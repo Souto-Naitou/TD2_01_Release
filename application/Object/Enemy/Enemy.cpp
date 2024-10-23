@@ -42,7 +42,7 @@ void Enemy::Initialize(std::string _idx)
     collider_.SetColliderID("Enemy");                                   // コライダーのID
     moveSpeed_          = 1.0f;                                         // 移動スピード
     moveSpeed_sucked_   = 10.0f;                                        // 吸い込み時加算スピード
-    hp_                 = 3;                                            // HP
+    hp_                 = 2;                                            // HP
     color_              = { 0.7215686f, 0.0f, 0.1215686f, 1.0f };       // 色
 
     /// コライダーの設定

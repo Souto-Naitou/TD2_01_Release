@@ -185,8 +185,8 @@ private: /// 非公開データ
     static  float                   bouncePower_rotateBoard_;                   // RotateBoardとの反発力
     static  float                   bouncePower_nestWall_;                      // NestWallとの反発力
 
-	uint32_t                        hitWallSH_                      = 0xFFFFFFFF;   // ヒットサウンドのSH
-	uint32_t                        hitRotateBoardSH_               = 0xFFFFFFFF;   // ヒットサウンドのSH
+    uint32_t                        hitWallSH_                      = 0xFFFFFFFF;   // ヒットサウンドのSH
+    uint32_t                        hitRotateBoardSH_               = 0xFFFFFFFF;   // ヒットサウンドのSH
 
 
 private: /// シングルトン インスタンスのポインタ

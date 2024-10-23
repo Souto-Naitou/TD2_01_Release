@@ -54,81 +54,98 @@ Enemy* EnemyPopSystem::Spawn(const Vector2& _point, float _range)
 void EnemyPopSystem::SpawnFromCSV(std::list<Enemy*>& _enemyList, Player* _pPlayer, bool _isEnableLighter, float _bouncePower)
 {
     if (!timer_.GetIsStart()) timer_.Start();
-    if (timer_.GetNow() < intervalSpawn) return;
+    if (isFirst_)
+    {
+        if (timer_.GetNow() > 3.0)
+        {
+            isFirst_ = false;
+        }
+        else return;
+    }
+    else if (timer_.GetNow() < intervalSpawn) return;
+
     timer_.Reset();
     timer_.Start();
 
     pPlayer_ = _pPlayer;
-    CSVData::iterator itr = pCSVData->begin();
-    int lineNum = rand() % pCSVData->size();
 
-    // イテレータをlineNum分進める
-    std::advance(itr, lineNum);
+    while (true)
+    {
+        CSVData::iterator itr = pCSVData->begin();
+        int lineNum = rand() % pCSVData->size();
+        // イテレータをlineNum分進める
+        std::advance(itr, lineNum);
+        CSVLine& line = *itr;
+        std::string direction;
+        int count = 0;
+        line[0].seekg(0);
+        line[1].seekg(0);
+        line[1] >> count;
+        line[0] >> direction;
 
-    CSVLine& line = *itr;
-    std::string direction;
-    int count = 0;
-    line[0].seekg(0);
-    line[1].seekg(0);
-    line[1] >> count;
-    line[0] >> direction;
+        if (direction == "Top")
+        {
+            if (!pNestWallTop_) continue;
+            for (int i = 0; i < count; ++i)
+            {
+                Vector2 point =
+                {
+                    static_cast<float>(rand() % DefaultSettings::kGameScreenWidth) + DefaultSettings::kGameScenePosX,
+                    static_cast<float>(rand() % 50) + DefaultSettings::kGameScenePosY - 110
+                };
+                Enemy* pEnemy = Spawn(point, 50);
+                EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
+                _enemyList.push_back(pEnemy);
+            }
+        }
+        else if (direction == "Left")
+        {
+            if (!pNestWallLeft_) continue;
+            for (int i = 0; i < count; ++i)
+            {
+                Vector2 point =
+                {
+                    static_cast<float>(rand() % 50) + DefaultSettings::kGameScenePosX - 110,
+                    static_cast<float>(rand() % DefaultSettings::kGameScreenHeight) + DefaultSettings::kGameScenePosY
+                };
+                Enemy* pEnemy = Spawn(point, 50);
+                EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
+                _enemyList.push_back(pEnemy);
+            }
+        }
+        else if (direction == "Right")
+        {
+            if (!pNestWallRight_) continue;
+            for (int i = 0; i < count; ++i)
+            {
+                Vector2 point =
+                 {
+                    static_cast<float>(rand() % 50) + DefaultSettings::kGameScreenWidth + 10,
+                    static_cast<float>(rand() % DefaultSettings::kGameScreenHeight) + DefaultSettings::kGameScenePosY
+                };
+                Enemy* pEnemy = Spawn(point, 50);
+                EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
+                _enemyList.push_back(pEnemy);
+            }
+        }
+        else if (direction == "Bottom")
+        {
+            if (!pNestWallBottom_) continue;
+            for (int i = 0; i < count; ++i)
+            {
+                Vector2 point =
+                {
+                    static_cast<float>(rand() % DefaultSettings::kGameScreenWidth) + DefaultSettings::kGameScenePosX,
+                    static_cast<float>(rand() % 50) + DefaultSettings::kGameScreenHeight + 10
+                };
+                Enemy* pEnemy = Spawn(point, 50);
+                EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
+                _enemyList.push_back(pEnemy);
+            }
+        }
+        break;
+    }
 
-    if (direction == "Top")
-    {
-        for (int i = 0; i < count; ++i)
-        {
-            Vector2 point =
-            {
-                static_cast<float>(rand() % DefaultSettings::kGameScreenWidth) + DefaultSettings::kGameScenePosX,
-                static_cast<float>(rand() % 100) + DefaultSettings::kGameScenePosY - 110
-            };
-            Enemy* pEnemy = Spawn(point, 100);
-            EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
-            _enemyList.push_back(pEnemy);
-        }
-    }
-    else if (direction == "Left")
-    {
-        for (int i = 0; i < count; ++i)
-        {
-            Vector2 point =
-            {
-                static_cast<float>(rand() % 100) + DefaultSettings::kGameScenePosX - 110,
-                static_cast<float>(rand() % DefaultSettings::kGameScreenHeight) + DefaultSettings::kGameScenePosY
-            };
-            Enemy* pEnemy = Spawn(point, 100);
-            EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
-            _enemyList.push_back(pEnemy);
-        }
-    }
-    else if (direction == "Right")
-    {
-        for (int i = 0; i < count; ++i)
-        {
-            Vector2 point =
-            {
-                static_cast<float>(rand() % 100) + DefaultSettings::kGameScreenWidth + 10,
-                static_cast<float>(rand() % DefaultSettings::kGameScreenHeight) + DefaultSettings::kGameScenePosY
-            };
-            Enemy* pEnemy = Spawn(point, 100);
-            EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
-            _enemyList.push_back(pEnemy);
-        }
-    }
-    else if (direction == "Bottom")
-    {
-        for (int i = 0; i < count; ++i)
-        {
-            Vector2 point =
-            {
-                static_cast<float>(rand() % DefaultSettings::kGameScreenWidth) + DefaultSettings::kGameScenePosX,
-                static_cast<float>(rand() % 100) + DefaultSettings::kGameScreenHeight + 10
-            };
-            Enemy* pEnemy = Spawn(point, 100);
-            EnemyInitialize(pEnemy, _isEnableLighter, _bouncePower);
-            _enemyList.push_back(pEnemy);
-        }
-    }
 }
 
 Enemy* EnemyPopSystem::Update(double _interval, const Vector2& _start, const Vector2& _end)

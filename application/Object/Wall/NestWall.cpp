@@ -23,7 +23,7 @@ NestWall::~NestWall()
 void NestWall::Initialize()
 {
     // 仮HP
-    hp_ = 50;
+    hp_ = 20;
     collider_.SetColliderID("NestWall");
     collider_.SetAttribute(pCollisionManager_->GetNewAttribute("NestWall"));
     pCollisionManager_->RegisterCollider(&collider_);

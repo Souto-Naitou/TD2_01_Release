@@ -57,48 +57,40 @@ public: // メンバ関数
     void DebugWindow();
 
 private: /// 非公開データ
-    Player*             pPlayer_            = nullptr;
-    Core*               pCore_              = nullptr;
-    NestWall*           pNestWallLeft_      = nullptr;
-    NestWall*           pNestWallTop_       = nullptr;
-    NestWall*           pNestWallRight_     = nullptr;
-    NestWall*           pNestWallBottom_    = nullptr;
-    EnemyPopSystem*     pEnemyPopSystem_    = nullptr;
-    std::list<Enemy*>   enemyList_          = {};
-    Timer               timer_              = {};
-    bool                isEnableLighter_    = false;
-    bool                isPop_              = true;
-    float               e2eBouncePower_     = 0.1f;
-    float               e2rbBouncePower_    = 3.5f;
-    bool                isDebugEnable_      = true;
-    bool                isDebug_            = false;
-    uint32_t            bgmSH_              = 0xFFFFFFFF;
-	uint32_t            bgmVH_              = 0xFFFFFFFF;
-    float               vignettePower       = 0.f;
-	float               vignettePowerMax    = 0.5f;
-    float               vignetteRange       = 50.0f;
-	float               vignetteRangeMax    = 17.0f;
+    Player* pPlayer_ = nullptr;
+    Core* pCore_ = nullptr;
+    NestWall* pNestWallLeft_ = nullptr;
+    NestWall* pNestWallTop_ = nullptr;
+    NestWall* pNestWallRight_ = nullptr;
+    NestWall* pNestWallBottom_ = nullptr;
+    EnemyPopSystem* pEnemyPopSystem_ = nullptr;
+    std::list<Enemy*>   enemyList_ = {};
+    Timer               timer_ = {};
+    bool                isEnableLighter_ = true;
+    bool                isPop_ = true;
+    float               e2eBouncePower_ = 0.1f;
+    float               e2rbBouncePower_ = 3.5f;
+    bool                isDebugEnable_ = true;
+    bool                isDebug_ = false;
+    uint32_t            bgmSH_ = 0xFFFFFFFF;
+    uint32_t            bgmVH_ = 0xFFFFFFFF;
+    float               vignettePower = 0.f;
+    float               vignettePowerMax = 0.5f;
+    float               vignetteRange = 50.0f;
+    float               vignetteRangeMax = 17.0f;
 
 private: /// 他オブジェクトのデータ
-    CollisionManager*   pCollisionManager_  = nullptr;
-    EnemyManager*       pEnemyManager_      = nullptr;
-    Input*              pInput_             = nullptr;
-    Draw2D*             pDraw2D_            = nullptr;
-    ParticleSystem*     pParticleSystem_    = nullptr;
+    CollisionManager* pCollisionManager_ = nullptr;
+    EnemyManager* pEnemyManager_ = nullptr;
+    Input* pInput_ = nullptr;
+    Draw2D* pDraw2D_ = nullptr;
+    ParticleSystem* pParticleSystem_ = nullptr;
 
 private: /// 非公開メソッド
     void MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset);
 
-    template<typename T>
-    void DeleteIf(T** _object)
-    {
-        if (!*_object) return;
-        if ((*_object)->GetIsDead())
-        {
-            delete *_object;
-            *_object = nullptr;
-        }
-    }
+    void DeleteIf(NestWall** _ptr);
+    void DeleteIf(Core** _ptr);
 
     /// <summary>
     /// nullptrチェックを行い、安全に削除する

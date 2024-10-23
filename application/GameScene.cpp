@@ -109,6 +109,13 @@ void GameScene::Initialize()
 	// bgm再生
 	bgmVH_ = Audio::GetInstance()->PlayWave(bgmSH_, true, 0.1f);
 
+    if (pPlayer_) pPlayer_->SetEnableLighter(isEnableLighter_);
+    if (pCore_) pCore_->SetEnableLighter(isEnableLighter_);
+    for (Enemy* enemy : enemyList_)
+    {
+        enemy->SetEnableLighter(isEnableLighter_);
+    }
+
 }
 
 void GameScene::Finalize()
@@ -174,7 +181,12 @@ void GameScene::Update()
     if (pNestWallRight_)    pNestWallRight_->Update();
     if (pNestWallBottom_)   pNestWallBottom_->Update();
 
-    for (Enemy* ptr : enemyList_) ptr->Update();   
+    pEnemyPopSystem_->SetNestWallLeft(pNestWallLeft_);
+    pEnemyPopSystem_->SetNestWallTop(pNestWallTop_);
+    pEnemyPopSystem_->SetNestWallRight(pNestWallRight_);
+    pEnemyPopSystem_->SetNestWallBottom(pNestWallBottom_);
+
+    for (Enemy* ptr : enemyList_) ptr->Update();
 
     /// 当たり判定処理
     pCollisionManager_->CheckAllCollision();
@@ -254,7 +266,7 @@ void GameScene::Draw()
         Vector2(DefaultSettings::kGameScenePosX, DefaultSettings::kGameScenePosY),
         Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
         Vector4(0.01f, 0.01f, 0.01f, 1.0f)
-    );  
+    );
 
     if(pParticleSystem_ && pPlayer_->IsPusing())    pParticleSystem_->Draw();
 
@@ -268,7 +280,7 @@ void GameScene::Draw()
 
     for (Enemy* ptr : enemyList_) ptr->Draw();
 
-  
+
 
 }
 
@@ -321,4 +333,24 @@ void GameScene::MakeWall(NestWall** _nestWall, std::string _id, int _width, int 
     *_nestWall = new NestWall(_id);
     (*_nestWall)->SetRect(_width, _height, _origin, _offset);
     (*_nestWall)->Initialize();
+}
+
+void GameScene::DeleteIf(NestWall** _ptr)
+{
+    if (!*_ptr) return;
+    if ((*_ptr)->GetIsDead())
+    {
+        delete* _ptr;
+        *_ptr = nullptr;
+    }
+}
+
+void GameScene::DeleteIf(Core** _ptr)
+{
+    if (!*_ptr) return;
+    if ((*_ptr)->GetIsDead())
+    {
+        delete* _ptr;
+        *_ptr = nullptr;
+    }
 }

@@ -25,7 +25,7 @@ void RotateBoard::Initialize()
 {
     /// 各種データの初期化
     padding_ = 24;
-    offset_ = 0.5f;
+    offset_ = 0.75f;
 
 
     // 回転の開始

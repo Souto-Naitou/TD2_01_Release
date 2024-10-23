@@ -90,7 +90,7 @@ void Player::Update()
 	{
 		// chargeSE再生
 		if (chargeVH_ == 0xFFFFFFFF)
-			chargeVH_ = Audio::GetInstance()->PlayWave(chargeSH_, false, 0.15f);
+			chargeVH_ = Audio::GetInstance()->PlayWave(chargeSH_, true, 0.15f);
 
 		isAttack_ = false;
 		isPusing_ = true;
@@ -109,7 +109,7 @@ void Player::Update()
 		chargeVH_ = 0xFFFFFFFF;
 
 		// releaseSE再生
-		Audio::GetInstance()->PlayWave(releaseSH_, false, 0.15f);
+		Audio::GetInstance()->PlayWave(releaseSH_, false, 0.3f);
 
 		/// スペースを離したら
 		latestAttackMultiply_ = pEasingBoxResize_->GetCurrentT();
