@@ -15,7 +15,7 @@ NestWall::NestWall(std::string _ID)
 
 NestWall::~NestWall()
 {
-	Audio::GetInstance()->PlayWave(deadSH_, false, 0.3f);
+    if (isDead_) Audio::GetInstance()->PlayWave(deadSH_, false, 0.3f);
     DebugManager::GetInstance()->DeleteComponent(objectID_.c_str());
     pCollisionManager_->DeleteCollider(&collider_);
 }

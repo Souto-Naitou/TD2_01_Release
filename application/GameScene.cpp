@@ -205,7 +205,7 @@ void GameScene::Update()
     if (!pNestWallLeft_ && !pNestWallTop_ && !pNestWallRight_ && !pNestWallBottom_)
     {
         // (遷移を追加するならここ)
-        SceneManager::GetInstance()->ChangeScene("gameclear");
+        SceneManager::GetInstance()->ChangeScene("clear");
     }
 
     if (!pCore_)
