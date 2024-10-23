@@ -136,6 +136,8 @@ void MyGame::Draw()
 			{
 				ImGui::DragFloat("VignettePower", &vignettePower, 0.01f, 0.0f, 10.0f);
 				PostEffect::GetInstance()->SetVignettePower(vignettePower);
+				ImGui::DragFloat("VignetteRange", &vignetteRange, 0.01f, 0.0f, 100.0f);
+				PostEffect::GetInstance()->SetVignetteRange(vignetteRange);
 			}
 
 			if (postEffectType == VignetteRedBloom)
