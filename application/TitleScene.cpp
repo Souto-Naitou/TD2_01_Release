@@ -4,6 +4,7 @@
 #include "Object3dBasic.h"
 #include "SpriteBasic.h"
 #include "Input.h"
+#include "Audio.h"
 #include "Draw2D.h"
 #include "PostEffect.h"
 #include <algorithm>
@@ -47,6 +48,9 @@ void TitleScene::Initialize()
 	///              初期化処理              ///
 	/// ================================== ///
 
+	// サウンドの読み込み
+	bgmSH_ = Audio::GetInstance()->LoadWaveFile("bgm/titleBGM.wav");
+	selectSeSH_ = Audio::GetInstance()->LoadWaveFile("title_space.wav");
 	//textureの読み込み
 	TextureManager::GetInstance()->LoadTexture("resources/titleBarTex.png");
 	TextureManager::GetInstance()->LoadTexture("resources/titleUI_white.png");
@@ -59,6 +63,8 @@ void TitleScene::Initialize()
 
 	// 矩形の初期サイズを設定
 	Titlesprite_->SetSize({ originalWidth_,originalHeight_ });
+	// bgm再生
+	bgmVH_ = Audio::GetInstance()->PlayWave(bgmSH_, true, 0.3f);
 
 	// 色を設定
 	red_ = 0xFF;
@@ -82,6 +88,8 @@ void TitleScene::Initialize()
 
 void TitleScene::Finalize()
 {
+	// bgm再生停止
+	Audio::GetInstance()->StopWave(bgmVH_);
 
 }
 
@@ -114,6 +122,7 @@ void TitleScene::Update()
 
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
+		Audio::GetInstance()->PlayWave(selectSeSH_, false, 0.3f);
 		SceneManager::GetInstance()->ChangeScene("game");
 	}
 }

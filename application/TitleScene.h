@@ -63,6 +63,11 @@ private: // メンバ変数
 	// 増加フラグ
 	bool isIncreasing_ = true;
 
+	// SoundHandle
+	uint32_t bgmSH_;
+	uint32_t bgmVH_;
+
+	uint32_t selectSeSH_;
 	// uiテクスチャの色
 	int uiColor_ = {};
 

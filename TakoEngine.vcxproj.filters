@@ -212,9 +212,6 @@
     <ClCompile Include="engine\scene\SceneManager.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
     </ClCompile>
-    <ClCompile Include="application\SceneFactory.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
     <ClCompile Include="engine\2d\Draw2D.cpp">
       <Filter>ソース ファイル\engine\2d</Filter>
     </ClCompile>
@@ -308,6 +305,9 @@
     <ClCompile Include="application\ClearScene.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
+    <ClCompile Include="application\SceneFactory.cpp">
+      <Filter>ソース ファイル\engine\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\func\mathFunc\Mat4x4Func.h">
@@ -390,9 +390,6 @@
     </ClInclude>
     <ClInclude Include="engine\scene\AbstractSceneFactory.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\SceneFactory.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="engine\2d\Draw2D.h">
       <Filter>ヘッダー ファイル\engine\2d</Filter>
@@ -496,6 +493,9 @@
     <ClInclude Include="application\GameOverScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
+    <ClInclude Include="application\SceneFactory.h">
+      <Filter>ヘッダー ファイル\engine\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\NoTex.hlsli">
@@ -543,6 +543,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="resources\shaders\VigRedGrayScale.PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\VignetteRedBloom.PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

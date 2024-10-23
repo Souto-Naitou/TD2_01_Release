@@ -9,6 +9,7 @@
 #include "Helper/DefaultSettings.h"
 #include "Object/Player/Player.h"
 #include "Object/RotateBoard/RotateBoard.h"
+#include "Audio.h"
 
 float Enemy::bouncePower_enemy_ = 0.25f;
 float Enemy::bouncePower_rotateBoard_ = 3.0f;
@@ -38,11 +39,11 @@ void Enemy::Initialize(std::string _idx)
     ellipseAB_ = { 20.0f ,10.0f };              // ax^2 + by^2 = 1
 
 
-    collider_.SetColliderID("Enemy");                       // コライダーのID
-    moveSpeed_          = 1.0f;                             // 移動スピード
-    moveSpeed_sucked_   = 10.0f;                            // 吸い込み時加算スピード
-    hp_                 = 3;                                // HP
-    color_              = { 1.0f, 0.0f, 0.0f, 1.0f };       // 色
+    collider_.SetColliderID("Enemy");                                   // コライダーのID
+    moveSpeed_          = 1.0f;                                         // 移動スピード
+    moveSpeed_sucked_   = 10.0f;                                        // 吸い込み時加算スピード
+    hp_                 = 3;                                            // HP
+    color_              = { 0.7215686f, 0.0f, 0.1215686f, 1.0f };       // 色
 
     /// コライダーの設定
     collider_.SetOwner(this);
@@ -52,6 +53,10 @@ void Enemy::Initialize(std::string _idx)
     // Colliderにポインタを渡す
     collider_.SetOnCollision(std::bind(&Enemy::OnCollision, this, std::placeholders::_1));
     collider_.SetOnCollisionTrigger(std::bind(&Enemy::OnCollisionTrigger, this, std::placeholders::_1));
+
+	// サウンドの読み込み
+	hitWallSH_ = Audio::GetInstance()->LoadWaveFile("hit3.wav");
+	hitRotateBoardSH_ = Audio::GetInstance()->LoadWaveFile("hit.wav");
 }
 
 void Enemy::Update()
@@ -85,7 +90,7 @@ void Enemy::Update()
     if (hp_ <= 0) isDead_ = true;
 
     // Playerに攻撃されたら色を変更
-    if (isBounce_) color_ = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+    //if (isBounce_) color_ = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
     if (state_ == State::Normal) suctionPower_ = 0.0f;
 
@@ -293,6 +298,14 @@ void Enemy::OnCollisionTrigger(const Collider* _other)
         acceleration_ = edge.Perpendicular().Normalize() * bouncePower_nestWall_;
 
         hp_--;
+
+		// ヒットサウンド再生
+		Audio::GetInstance()->PlayWave(hitWallSH_, 0.3f);
+    }
+
+    if (_other->GetColliderID() == "RotateBoard") {
+        // ヒットサウンド再生
+        Audio::GetInstance()->PlayWave(hitRotateBoardSH_, 0.3f);
     }
 }
 
