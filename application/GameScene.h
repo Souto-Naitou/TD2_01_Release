@@ -15,6 +15,8 @@
 #include "GameSystem/EnemyPopSystem/EnemyPopSytem.h"
 #include "externals/Timer/Timer.h"
 
+#include "Particle/ParticleSystem.h"
+
 #include <Vector2.h>
 #include <vector>
 
@@ -78,6 +80,7 @@ private: /// 他オブジェクトのデータ
     EnemyManager*       pEnemyManager_      = nullptr;
     Input*              pInput_             = nullptr;
     Draw2D*             pDraw2D_            = nullptr;
+    ParticleSystem*     pParticleSystem_    = nullptr;
 
 private: /// 非公開メソッド
     void MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset);
