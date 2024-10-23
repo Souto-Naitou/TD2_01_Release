@@ -110,7 +110,7 @@ private: // メンバ変数
 	/// <summary>
 	/// テクスチャ情報を更新
 	/// </summary>
-	void UpdateTexData(SpriteBasic* sprite);
+	void UpdateTexData(TexData& texData);
 
 	/// <summary>
 	/// カウンタを調整
