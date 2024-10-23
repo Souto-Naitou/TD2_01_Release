@@ -28,14 +28,13 @@ public: /// 公開メソッド
     Collider*           GetCollider() { return &collider_; }
     float               GetHPBarWidth()     const { return pHpBar_->GetWidth(); }
     float               GetHPBarHeight()    const { return pHpBar_->GetHeight(); }
-    bool                GetIsDead()         const { return isDead_; }
 
 
-	void                SetHPBarPos(Vector2 _pos) { pHpBar_->SetPos(_pos); }
-	void                SetHPBarRotation(float _rotation) { pHpBar_->SetRotation(_rotation); }
-	void                SetHPBarWidth(float _width) { pHpBar_->SetWidth(_width); }
-	void                SetHPBarHeight(float _height) { pHpBar_->SetHeight(_height); }
-	void                SetHPBarColor(Vector4 _color) { pHpBar_->SetColor(_color); }
+    void                SetHPBarPos(Vector2 _pos) { pHpBar_->SetPos(_pos); }
+    void                SetHPBarRotation(float _rotation) { pHpBar_->SetRotation(_rotation); }
+    void                SetHPBarWidth(float _width) { pHpBar_->SetWidth(_width); }
+    void                SetHPBarHeight(float _height) { pHpBar_->SetHeight(_height); }
+    void                SetHPBarColor(Vector4 _color) { pHpBar_->SetColor(_color); }
     void                SetRect(int _width, int _height, Vector2 _leftTop, size_t _offset);
 
 
@@ -43,7 +42,6 @@ private: /// 非公開データ
     Rect2               rect_;
     Collider            collider_;
 	HPBar*              pHpBar_;
-    bool                isDead_ = false;
 
 
 private: /// 非公開メソッド

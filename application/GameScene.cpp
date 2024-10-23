@@ -261,13 +261,3 @@ void GameScene::MakeWall(NestWall** _nestWall, std::string _id, int _width, int 
     (*_nestWall)->SetRect(_width, _height, _origin, _offset);
     (*_nestWall)->Initialize();
 }
-
-void GameScene::DeleteIf(NestWall** _nestWall)
-{
-    if (!*_nestWall) return;
-    if ((*_nestWall)->GetIsDead())
-    {
-        delete *_nestWall;
-        *_nestWall = nullptr;
-    }
-}

@@ -66,8 +66,8 @@ private: /// 非公開データ
     Timer               timer_              = {};
     bool                isEnableLighter_    = false;
     bool                isPop_              = false;
-    float               e2eBouncePower_     = 2.0f;
-    float               e2rbBouncePower_    = 2.0f;
+    float               e2eBouncePower_     = 0.1f;
+    float               e2rbBouncePower_    = 3.5f;
     bool                isDebugEnable_      = true;
     bool                isDebug_            = false;
 
@@ -79,5 +79,15 @@ private: /// 他オブジェクトのデータ
 
 private: /// 非公開メソッド
     void MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset);
-    void DeleteIf(NestWall** _nestWall);
+
+    template<typename T>
+    void DeleteIf(T** _object)
+    {
+        if (!*_object) return;
+        if ((*_object)->GetIsDead())
+        {
+            delete *_object;
+            *_object = nullptr;
+        }
+    }
 };
