@@ -27,6 +27,10 @@ Player::~Player()
 	DebugManager::GetInstance()->DeleteComponent("Player");
 	pCollisionManager_->DeleteCollider(&collider_);
 	if (pRotateBoard_) { delete pRotateBoard_; pRotateBoard_ = nullptr; }
+	// chargeSE停止
+    if (chargeVH_ != 0xFFFFFFFF)
+		Audio::GetInstance()->StopWave(chargeVH_);
+	chargeVH_ = 0xFFFFFFFF;
 }
 
 void Player::Initialize()

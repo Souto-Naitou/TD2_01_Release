@@ -65,7 +65,7 @@ private: /// 非公開データ
     std::list<Enemy*>   enemyList_          = {};
     Timer               timer_              = {};
     bool                isEnableLighter_    = false;
-    bool                isPop_              = false;
+    bool                isPop_              = true;
     float               e2eBouncePower_     = 0.1f;
     float               e2rbBouncePower_    = 3.5f;
     bool                isDebugEnable_      = true;
