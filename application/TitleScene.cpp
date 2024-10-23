@@ -105,6 +105,14 @@ void TitleScene::Draw()
 	/// ================================== ///
 	///              描画処理               ///
 	/// ================================== ///
+	
+	// 背景
+	Draw2D::GetInstance()->DrawBox(
+		Vector2(DefaultSettings::kGameScenePosX, DefaultSettings::kGameScenePosY),
+		Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
+		0.0f, Vector4(0.01f, 0.01f, 0.01f, 1.0f)
+	);
+	
 	//------------------背景Spriteの描画------------------//
 	// スプライト共通描画設定
 	SpriteBasic::GetInstance()->SetCommonRenderSetting();

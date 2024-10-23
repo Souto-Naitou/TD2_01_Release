@@ -224,7 +224,7 @@
     <ClCompile Include="engine\2d\DebugCamera.cpp">
       <Filter>ソース ファイル\engine\3d</Filter>
     </ClCompile>
-    <ClCompile Include="Transition.cpp">
+    <ClCompile Include="engine\scene\Transition.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\Helper\ImGuiTemplates\ImGuiTemplates.cpp">
@@ -302,11 +302,11 @@
     <ClCompile Include="engine\imgui\ImGuiManager.cpp">
       <Filter>ソース ファイル\engine\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="ClearScene.cpp">
-      <Filter>ソース ファイル\engine\scene</Filter>
+    <ClCompile Include="application\GameOverScene.cpp">
+      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
-    <ClCompile Include="GameOverScene.cpp">
-      <Filter>ソース ファイル\engine\scene</Filter>
+    <ClCompile Include="application\ClearScene.cpp">
+      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -406,7 +406,7 @@
     <ClInclude Include="engine\2d\DebugCamera.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
-    <ClInclude Include="Transition.h">
+    <ClInclude Include="engine\scene\Transition.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
     </ClInclude>
     <ClInclude Include="application\Helper\DefaultSettings.h">
@@ -490,10 +490,10 @@
     <ClInclude Include="engine\imgui\ImGuiManager.h">
       <Filter>ヘッダー ファイル\engine\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="ClearScene.h">
+    <ClInclude Include="application\ClearScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
-    <ClInclude Include="GameOverScene.h">
+    <ClInclude Include="application\GameOverScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
   </ItemGroup>
