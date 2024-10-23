@@ -16,6 +16,7 @@
 #include <format>
 #include <cmath>
 #include <numbers>
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -53,6 +54,8 @@ void GameScene::Initialize()
 
 	// ポストエフェクトの設定
     PostEffect::GetInstance()->SetBloomThreshold(0.35f);
+    PostEffect::GetInstance()->SetVignettePower(vignettePower);
+    PostEffect::GetInstance()->SetVignetteRange(vignetteRange);
 
 	// サウンドの読み込み
 	bgmSH_ = Audio::GetInstance()->LoadWaveFile("bgm/gameBGM.wav");
@@ -71,6 +74,9 @@ void GameScene::Initialize()
 
     pCore_ = new Core();
     pCore_->Initialize();
+
+    pParticleSystem_ = new ParticleSystem();
+    pParticleSystem_->Initialize();
 
     uint32_t nestWallWidth = 40u;
 
@@ -110,6 +116,7 @@ void GameScene::Finalize()
 	// bgm再生停止
 	Audio::GetInstance()->StopWave(bgmVH_);
 
+    SafeDelete(&pParticleSystem_);
     SafeDelete(&pCore_);
     SafeDelete(&pNestWallLeft_);
     SafeDelete(&pNestWallTop_);
@@ -156,6 +163,8 @@ void GameScene::Update()
         EasingManager::GetInstance()->SetDisplayUI(isDebugEnable_);
     }
 
+    // パーティクルシステム更新処理呼び出し
+    if(pParticleSystem_ && pPlayer_->IsPusing())    pParticleSystem_->Update();
 
     /// 各オブジェクトの更新処理呼出
     if (pPlayer_)           pPlayer_->Update();
@@ -165,11 +174,20 @@ void GameScene::Update()
     if (pNestWallRight_)    pNestWallRight_->Update();
     if (pNestWallBottom_)   pNestWallBottom_->Update();
 
-    for (Enemy* ptr : enemyList_) ptr->Update();
+    for (Enemy* ptr : enemyList_) ptr->Update();   
 
     /// 当たり判定処理
     pCollisionManager_->CheckAllCollision();
 
+    // ヴィネットエフェクト
+    if (pCore_) {
+        float maxHP = 7.0f; // 最大HPの値
+        float hpRatio = 1.0f - std::clamp(pCore_->GetHP() / maxHP, 0.0f, 1.0f); // HPが低いほど値が大きくなる
+        float power = vignettePower + std::clamp(hpRatio * vignettePowerMax, 0.0f, vignettePowerMax);
+        float range = vignetteRange - std::clamp(hpRatio * vignetteRangeMax, 0.0f, vignetteRangeMax);
+        PostEffect::GetInstance()->SetVignettePower(power);
+        PostEffect::GetInstance()->SetVignetteRange(range);
+    }
 
     /// PopSystem
     if (isPop_)
@@ -236,7 +254,9 @@ void GameScene::Draw()
         Vector2(DefaultSettings::kGameScenePosX, DefaultSettings::kGameScenePosY),
         Vector2(DefaultSettings::kGameScreenWidth, DefaultSettings::kGameScreenHeight),
         Vector4(0.01f, 0.01f, 0.01f, 1.0f)
-    );
+    );  
+
+    if(pParticleSystem_ && pPlayer_->IsPusing())    pParticleSystem_->Draw();
 
     if (pPlayer_)           pPlayer_->Draw();
     if (pCore_)             pCore_->Draw();
@@ -247,6 +267,9 @@ void GameScene::Draw()
     if (pNestWallBottom_)   pNestWallBottom_->Draw();
 
     for (Enemy* ptr : enemyList_) ptr->Draw();
+
+  
+
 }
 
 void GameScene::DrawImGui()

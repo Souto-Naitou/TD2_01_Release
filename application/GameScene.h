@@ -15,6 +15,8 @@
 #include "GameSystem/EnemyPopSystem/EnemyPopSytem.h"
 #include "externals/Timer/Timer.h"
 
+#include "Particle/ParticleSystem.h"
+
 #include <Vector2.h>
 #include <vector>
 
@@ -72,12 +74,17 @@ private: /// 非公開データ
     bool                isDebug_            = false;
     uint32_t            bgmSH_              = 0xFFFFFFFF;
 	uint32_t            bgmVH_              = 0xFFFFFFFF;
+    float               vignettePower       = 0.f;
+	float               vignettePowerMax    = 0.5f;
+    float               vignetteRange       = 50.0f;
+	float               vignetteRangeMax    = 17.0f;
 
 private: /// 他オブジェクトのデータ
     CollisionManager*   pCollisionManager_  = nullptr;
     EnemyManager*       pEnemyManager_      = nullptr;
     Input*              pInput_             = nullptr;
     Draw2D*             pDraw2D_            = nullptr;
+    ParticleSystem*     pParticleSystem_    = nullptr;
 
 private: /// 非公開メソッド
     void MakeWall(NestWall** _nestWall, std::string _id, int _width, int _height, Vector2 _origin, size_t _offset);

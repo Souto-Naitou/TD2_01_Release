@@ -27,6 +27,7 @@ public:
     void            Draw();
     void            SetEnableLighter(bool _flag) { collider_.SetEnableLighter(_flag); }
     bool            IsAttack() const { return isAttack_; }
+    bool            IsPusing() const { return isPusing_; }
     void            OnCollision(const Collider* _other);
     Collider*       GetCollider() { return &collider_; }
     float           GetAttackMultiply() const { return latestAttackMultiply_; }
@@ -44,6 +45,7 @@ private:
 
     size_t          resolution_                 = 4u;
     bool            isAttack_                   = false;
+    bool            isPusing_                   = false;
 
     uint32_t        chargeSH_                   = 0xFFFFFFFF;
     uint32_t        chargeVH_                   = 0xFFFFFFFF;

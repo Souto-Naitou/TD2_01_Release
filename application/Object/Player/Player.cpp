@@ -93,6 +93,7 @@ void Player::Update()
 			chargeVH_ = Audio::GetInstance()->PlayWave(chargeSH_, false, 0.15f);
 
 		isAttack_ = false;
+		isPusing_ = true;
 		if (radius_current_ > radius_min_)
 		{
 			pEasingBoxTemp_->Reset();
@@ -114,6 +115,7 @@ void Player::Update()
 		latestAttackMultiply_ = pEasingBoxResize_->GetCurrentT();
 		radius_timeRelease_ = radius_current_;
 		isAttack_ = true;
+		isPusing_ = false;
 		pEnemyManager_->ChangeState(Enemy::State::Normal);
 	} else
 	{

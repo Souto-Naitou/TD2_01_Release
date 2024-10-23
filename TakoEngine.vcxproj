@@ -161,6 +161,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\scene\SceneManager.cpp" />
     <ClCompile Include="application\SceneFactory.cpp" />
     <ClCompile Include="engine\scene\Transition.cpp" />
+    <ClCompile Include="application\Particle\Particle.cpp" />
+    <ClCompile Include="application\Particle\ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\Collision\Collider\Collider.h" />
@@ -225,6 +227,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameOverScene.h" />
     <ClInclude Include="Matrix3x3.h" />
     <ClInclude Include="engine\scene\Transition.h" />
+    <ClInclude Include="application\Particle\Particle.h" />
+    <ClInclude Include="application\Particle\ParticleSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\FullScreen.hlsli">

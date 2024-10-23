@@ -7,6 +7,7 @@
 #include "Draw2D.h"
 #include <algorithm>
 #include <cmath>
+#include "PostEffect.h"
 
 #define PI 3.14159265f
 
@@ -41,6 +42,9 @@ void GameOverScene::Initialize()
 	green_ = 0xFF;
 	blue_ = 0xFF;
 	alpha_ = 0xFF;
+
+	PostEffect::GetInstance()->SetBloomThreshold(1.f);
+	PostEffect::GetInstance()->SetVignettePower(0.f);
 }
 
 void GameOverScene::Finalize()
