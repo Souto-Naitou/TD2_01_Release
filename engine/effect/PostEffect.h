@@ -24,6 +24,14 @@ public: // メンバ関数
 	struct VignetteParam
 	{
 		float power;
+		float range;
+	};
+
+	struct VignetteRedBloomParam
+	{
+		float power;
+		float range;
+		float threshold;
 	};
 
 	// ComPtrのエイリアス
@@ -52,6 +60,10 @@ public: // メンバ関数
 
 	void SetVignettePower(float power);
 
+	void SetVignetteRange(float range);
+
+	void SetBloomThreshold(float threshold);
+
 private: // プライベートメンバー関数
 
 	// レンダーテクスチャの初期化
@@ -65,6 +77,9 @@ private: // プライベートメンバー関数
 
 	// VignetteParamを生成
 	void CreateVignetteParam();
+
+	// VignetteRedBloomParamを生成
+	void CreateVignetteRedBloomParam();
 
 private: // メンバ変数
 
@@ -89,8 +104,12 @@ private: // メンバ変数
 	// シェーダーリソースビューのインデックス
 	uint32_t srvIndex_ = 0;
 
+	// 定数バッファのリソース
 	Microsoft::WRL::ComPtr<ID3D12Resource> vignetteParamResource_;
+	Microsoft::WRL::ComPtr<ID3D12Resource> vignetteRedBloomParamResource_;
 
+	// 定数バッファのデータ
 	VignetteParam* vignetteParam_;
+	VignetteRedBloomParam* vignetteRedBloomParam_;
 
 };

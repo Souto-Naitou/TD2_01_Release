@@ -2,6 +2,7 @@
 #include "Externals/ImGuiDebugManager/DebugManager.h"
 #include "Helper/ImGuiTemplates/ImGuiTemplates.h"
 #include "Object/Enemy/Enemy.h"
+#include "Audio.h"
 
 NestWall::NestWall(std::string _ID)
 {
@@ -14,23 +15,28 @@ NestWall::NestWall(std::string _ID)
 
 NestWall::~NestWall()
 {
+	Audio::GetInstance()->PlayWave(deadSH_, false, 0.3f);
     DebugManager::GetInstance()->DeleteComponent(objectID_.c_str());
+    pCollisionManager_->DeleteCollider(&collider_);
 }
 
 void NestWall::Initialize()
 {
     // 仮HP
-    hp_ = 100u;
+    hp_ = 5u;
     collider_.SetColliderID("NestWall");
     collider_.SetAttribute(pCollisionManager_->GetNewAttribute("NestWall"));
     pCollisionManager_->RegisterCollider(&collider_);
 	// HPバーの初期化
 	pHpBar_ = new HPBar();
-	pHpBar_->Init(static_cast<float>(hp_), position_, 200.0f, 10.0f, 0.0f, Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+	Vector4 color = Vector4(0.572549f, 0.1019608f, 0.25098f, 1.0f);
+	pHpBar_->Init(static_cast<float>(hp_), position_, 200.0f, 10.0f, 0.0f, color);
 
     // コライダーにOnCollisionの関数ポインタを渡す
     collider_.SetOnCollisionTrigger(std::bind(&NestWall::OnCollisionTrigger, this, std::placeholders::_1));
     collider_.SetOwner(this);
+
+	deadSH_ = Audio::GetInstance()->LoadWaveFile("wallBreak.wav");
 }
 
 void NestWall::RunSetMask()
@@ -47,8 +53,10 @@ void NestWall::Update()
 
 void NestWall::Draw()
 {
+    Vector4 color = Vector4(0.7215686f, 0.0f, 0.1215686f, 1.0f);
+	//Vector4 color = Vector4(0.7294118f, 0.1607843f, 0.2823529f, 1.0f);
     if (isDead_) return;
-    pDraw2D_->DrawBox(position_, Vector2(rect_.x2, rect_.y2), 0.0f, Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+    pDraw2D_->DrawBox(position_, Vector2(rect_.x2, rect_.y2), 0.0f, color);
 
 	pHpBar_->Draw();
 }
