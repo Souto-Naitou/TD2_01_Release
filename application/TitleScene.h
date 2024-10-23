@@ -35,6 +35,11 @@ public: // メンバ関数
 
 private: // メンバ変数
 
+	// SoundHandle
+	uint32_t bgmSH_;
+	uint32_t bgmVH_;
+
+	uint32_t selectSeSH_;
 
 	bool isDebug_ = false;
 };

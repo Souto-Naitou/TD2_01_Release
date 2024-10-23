@@ -2,6 +2,7 @@
 #include "Externals/ImGuiDebugManager/DebugManager.h"
 #include "Helper/ImGuiTemplates/ImGuiTemplates.h"
 #include "Object/Enemy/Enemy.h"
+#include "Audio.h"
 
 NestWall::NestWall(std::string _ID)
 {
@@ -14,6 +15,7 @@ NestWall::NestWall(std::string _ID)
 
 NestWall::~NestWall()
 {
+	Audio::GetInstance()->PlayWave(deadSH_, false, 0.3f);
     DebugManager::GetInstance()->DeleteComponent(objectID_.c_str());
     pCollisionManager_->DeleteCollider(&collider_);
 }
@@ -32,6 +34,8 @@ void NestWall::Initialize()
     // コライダーにOnCollisionの関数ポインタを渡す
     collider_.SetOnCollisionTrigger(std::bind(&NestWall::OnCollisionTrigger, this, std::placeholders::_1));
     collider_.SetOwner(this);
+
+	deadSH_ = Audio::GetInstance()->LoadWaveFile("wallBreak.wav");
 }
 
 void NestWall::RunSetMask()

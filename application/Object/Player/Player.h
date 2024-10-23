@@ -45,6 +45,11 @@ private:
     size_t          resolution_                 = 4u;
     bool            isAttack_                   = false;
 
+    uint32_t        chargeSH_                   = 0xFFFFFFFF;
+    uint32_t        chargeVH_                   = 0xFFFFFFFF;
+	uint32_t		releaseSH_                  = 0xFFFFFFFF;
+	uint32_t		releaseVH_                  = 0xFFFFFFFF;
+
     std::vector<Vector2>                    vertices_           = {};
     std::chrono::system_clock::time_point   startTime_          = {};
     std::unique_ptr<Easing>                 pEasingBoxResize_   = nullptr;

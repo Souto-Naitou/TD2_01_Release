@@ -50,6 +50,10 @@ void GameScene::Initialize()
     ///              初期化処理              ///
     /// ================================== ///
 
+	// サウンドの読み込み
+	bgmSH_ = Audio::GetInstance()->LoadWaveFile("bgm/gameBGM.wav");
+
+
     pEnemyManager_->SetEnemyList(&enemyList_);
 
 
@@ -92,10 +96,16 @@ void GameScene::Initialize()
 
     timer_.Start();
 
+	// bgm再生
+	bgmVH_ = Audio::GetInstance()->PlayWave(bgmSH_, true, 0.1f);
+
 }
 
 void GameScene::Finalize()
 {
+	// bgm再生停止
+	Audio::GetInstance()->StopWave(bgmVH_);
+
     SafeDelete(&pCore_);
     SafeDelete(&pNestWallLeft_);
     SafeDelete(&pNestWallTop_);

@@ -20,6 +20,7 @@ public:
 
     // コールバック関数
     void OnCollision(const Collider* _other);
+    void OnCollisionTrigger(const Collider* _other);
 
     void DebugWindow();
 
@@ -29,4 +30,5 @@ private:
     Rect2 boxCore_;
     Collider collider_;
     CollisionManager* pCollisionManager_; // シングルトンインスタンス
+	uint32_t damegedSH_;
 };
