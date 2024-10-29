@@ -255,6 +255,7 @@ void Enemy::OnCollision(const Collider* _other)
     /// 回転板との衝突後
     else if (otherID == "RotateBoard")
     {
+        if (isBounce_) return;
         const RotateBoard* pRotateBoard = static_cast<const RotateBoard*>(_other->GetOwner());
 
         const Vector2* rbVertices1 = pRotateBoard->GetVertices(1);
@@ -291,6 +292,7 @@ void Enemy::OnCollisionTrigger(const Collider* _other)
     if (_other->GetColliderID() == "NestWall")
     {
         if (!isBounce_) return;
+        isBounce_ = false;
         auto otherVertices = _other->GetVertices();
         Vector2 edge = (*otherVertices)[2] - (*otherVertices)[1];
 

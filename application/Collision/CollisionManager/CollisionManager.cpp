@@ -71,7 +71,7 @@ uint32_t CollisionManager::GetNewAttribute(std::string _id)
 
 void CollisionManager::DebugWindow()
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 
     ImGui::Text("判定回数 : %u回", countCheckCollision_);
     ImGui::Text("フィルターされた回数 : %u回", countWithoutFilter_ - countWithoutLighter);

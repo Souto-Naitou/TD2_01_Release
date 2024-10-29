@@ -94,7 +94,9 @@ void TitleScene::Finalize()
 {
 	// bgm再生停止
 	Audio::GetInstance()->StopWave(bgmVH_);
-
+    if (pRotateBoard_ != nullptr) delete pRotateBoard_;
+	delete Titlesprite_;
+    delete Spacesprite_;
 }
 
 void TitleScene::Update()
