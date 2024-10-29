@@ -54,9 +54,9 @@ void Enemy::Initialize(std::string _idx)
     collider_.SetOnCollision(std::bind(&Enemy::OnCollision, this, std::placeholders::_1));
     collider_.SetOnCollisionTrigger(std::bind(&Enemy::OnCollisionTrigger, this, std::placeholders::_1));
 
-	// サウンドの読み込み
-	hitWallSH_ = Audio::GetInstance()->LoadWaveFile("hit3.wav");
-	hitRotateBoardSH_ = Audio::GetInstance()->LoadWaveFile("hit.wav");
+    // サウンドの読み込み
+    hitWallSH_ = Audio::GetInstance()->LoadWaveFile("hit3.wav");
+    hitRotateBoardSH_ = Audio::GetInstance()->LoadWaveFile("hit.wav");
 }
 
 void Enemy::Update()
@@ -301,8 +301,8 @@ void Enemy::OnCollisionTrigger(const Collider* _other)
 
         hp_--;
 
-		// ヒットサウンド再生
-		Audio::GetInstance()->PlayWave(hitWallSH_, 0.3f);
+        // ヒットサウンド再生
+        Audio::GetInstance()->PlayWave(hitWallSH_, 0.3f);
     }
 
     if (_other->GetColliderID() == "RotateBoard") {

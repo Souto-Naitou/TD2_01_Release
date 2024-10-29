@@ -11,105 +11,105 @@ class DX12Basic;
 
 class PostEffect {
 private:
-	// シングルトン設定
-	static PostEffect* instance_;
+    // シングルトン設定
+    static PostEffect* instance_;
 
-	PostEffect() = default;
-	~PostEffect() = default;
-	PostEffect(PostEffect&) = delete;
-	PostEffect& operator=(PostEffect&) = delete;
+    PostEffect() = default;
+    ~PostEffect() = default;
+    PostEffect(PostEffect&) = delete;
+    PostEffect& operator=(PostEffect&) = delete;
 
 public: // メンバ関数
 
-	struct VignetteParam
-	{
-		float power;
-		float range;
-	};
+    struct VignetteParam
+    {
+        float power;
+        float range;
+    };
 
-	struct VignetteRedBloomParam
-	{
-		float power;
-		float range;
-		float threshold;
-	};
+    struct VignetteRedBloomParam
+    {
+        float power;
+        float range;
+        float threshold;
+    };
 
-	// ComPtrのエイリアス
-	template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+    // ComPtrのエイリアス
+    template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-	// インスタンスの取得
-	static PostEffect* GetInstance();
+    // インスタンスの取得
+    static PostEffect* GetInstance();
 
-	// 初期化
-	void Initialize(DX12Basic* dx12);
+    // 初期化
+    void Initialize(DX12Basic* dx12);
 
-	// 終了処理
-	void Finalize();
+    // 終了処理
+    void Finalize();
 
-	// 描画前の処理
-	void BeginDraw();
+    // 描画前の処理
+    void BeginDraw();
 
-	// 描画
-	void Draw(const std::string& effectName);
+    // 描画
+    void Draw(const std::string& effectName);
 
-	// バリアの設定
-	void SetBarrier(D3D12_RESOURCE_STATES stateBefore, D3D12_RESOURCE_STATES stateAfter);
+    // バリアの設定
+    void SetBarrier(D3D12_RESOURCE_STATES stateBefore, D3D12_RESOURCE_STATES stateAfter);
 
-	// レンダーテクスチャの取得
-	ID3D12Resource* GetRenderTextureResource() { return renderTextureResource_.Get(); }
+    // レンダーテクスチャの取得
+    ID3D12Resource* GetRenderTextureResource() { return renderTextureResource_.Get(); }
 
-	void SetVignettePower(float power);
+    void SetVignettePower(float power);
 
-	void SetVignetteRange(float range);
+    void SetVignetteRange(float range);
 
-	void SetBloomThreshold(float threshold);
+    void SetBloomThreshold(float threshold);
 
 private: // プライベートメンバー関数
 
-	// レンダーテクスチャの初期化
-	void InitRenderTexture();
+    // レンダーテクスチャの初期化
+    void InitRenderTexture();
 
-	// ルートシグネチャの生成
-	void CreateRootSignature(const std::string& effectName);
+    // ルートシグネチャの生成
+    void CreateRootSignature(const std::string& effectName);
 
-	// パイプラインステートの生成
-	void CreatePSO(const std::string& effectName);
+    // パイプラインステートの生成
+    void CreatePSO(const std::string& effectName);
 
-	// VignetteParamを生成
-	void CreateVignetteParam();
+    // VignetteParamを生成
+    void CreateVignetteParam();
 
-	// VignetteRedBloomParamを生成
-	void CreateVignetteRedBloomParam();
+    // VignetteRedBloomParamを生成
+    void CreateVignetteRedBloomParam();
 
 private: // メンバ変数
 
-	// DX12の基本情報
-	DX12Basic* m_dx12_ = nullptr;
+    // DX12の基本情報
+    DX12Basic* m_dx12_ = nullptr;
 
-	// レンダーテクスチャリソース
-	ComPtr<ID3D12Resource> renderTextureResource_;
+    // レンダーテクスチャリソース
+    ComPtr<ID3D12Resource> renderTextureResource_;
 
-	// レンダーテクスチャの RTV ハンドル
-	D3D12_CPU_DESCRIPTOR_HANDLE renderTextureRTVHandle_;
+    // レンダーテクスチャの RTV ハンドル
+    D3D12_CPU_DESCRIPTOR_HANDLE renderTextureRTVHandle_;
 
-	// レンダーテクスチャのclearColor
-	const Vector4 kRenderTextureClearColor_ = { 0.1f, 0.25f, 0.5f, 1.0f };
+    // レンダーテクスチャのclearColor
+    const Vector4 kRenderTextureClearColor_ = { 0.1f, 0.25f, 0.5f, 1.0f };
 
-	// ルートシグネチャ
-	std::unordered_map < std::string, ComPtr<ID3D12RootSignature>> rootSignatures_;
+    // ルートシグネチャ
+    std::unordered_map < std::string, ComPtr<ID3D12RootSignature>> rootSignatures_;
 
-	// パイプラインステート
-	std::unordered_map<std::string, ComPtr<ID3D12PipelineState>> pipelineStates_;
+    // パイプラインステート
+    std::unordered_map<std::string, ComPtr<ID3D12PipelineState>> pipelineStates_;
 
-	// シェーダーリソースビューのインデックス
-	uint32_t srvIndex_ = 0;
+    // シェーダーリソースビューのインデックス
+    uint32_t srvIndex_ = 0;
 
-	// 定数バッファのリソース
-	Microsoft::WRL::ComPtr<ID3D12Resource> vignetteParamResource_;
-	Microsoft::WRL::ComPtr<ID3D12Resource> vignetteRedBloomParamResource_;
+    // 定数バッファのリソース
+    Microsoft::WRL::ComPtr<ID3D12Resource> vignetteParamResource_;
+    Microsoft::WRL::ComPtr<ID3D12Resource> vignetteRedBloomParamResource_;
 
-	// 定数バッファのデータ
-	VignetteParam* vignetteParam_;
-	VignetteRedBloomParam* vignetteRedBloomParam_;
+    // 定数バッファのデータ
+    VignetteParam* vignetteParam_;
+    VignetteRedBloomParam* vignetteRedBloomParam_;
 
 };

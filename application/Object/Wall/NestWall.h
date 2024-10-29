@@ -41,9 +41,9 @@ public: /// 公開メソッド
 private: /// 非公開データ
     Rect2               rect_;
     Collider            collider_;
-	HPBar*              pHpBar_;
+    HPBar*              pHpBar_;
 
-	uint32_t            deadSH_ = 0xFFFFFFFF;
+    uint32_t            deadSH_ = 0xFFFFFFFF;
 
 private: /// 非公開メソッド
     void                DebugWindow();
