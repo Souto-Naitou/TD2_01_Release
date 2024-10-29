@@ -54,9 +54,9 @@ void Enemy::Initialize(std::string _idx)
     collider_.SetOnCollision(std::bind(&Enemy::OnCollision, this, std::placeholders::_1));
     collider_.SetOnCollisionTrigger(std::bind(&Enemy::OnCollisionTrigger, this, std::placeholders::_1));
 
-	// サウンドの読み込み
-	hitWallSH_ = Audio::GetInstance()->LoadWaveFile("hit3.wav");
-	hitRotateBoardSH_ = Audio::GetInstance()->LoadWaveFile("hit.wav");
+    // サウンドの読み込み
+    hitWallSH_ = Audio::GetInstance()->LoadWaveFile("hit3.wav");
+    hitRotateBoardSH_ = Audio::GetInstance()->LoadWaveFile("hit.wav");
 }
 
 void Enemy::Update()
@@ -255,6 +255,7 @@ void Enemy::OnCollision(const Collider* _other)
     /// 回転板との衝突後
     else if (otherID == "RotateBoard")
     {
+        if (isBounce_) return;
         const RotateBoard* pRotateBoard = static_cast<const RotateBoard*>(_other->GetOwner());
 
         const Vector2* rbVertices1 = pRotateBoard->GetVertices(1);
@@ -291,6 +292,7 @@ void Enemy::OnCollisionTrigger(const Collider* _other)
     if (_other->GetColliderID() == "NestWall")
     {
         if (!isBounce_) return;
+        isBounce_ = false;
         auto otherVertices = _other->GetVertices();
         Vector2 edge = (*otherVertices)[2] - (*otherVertices)[1];
 
@@ -299,8 +301,8 @@ void Enemy::OnCollisionTrigger(const Collider* _other)
 
         hp_--;
 
-		// ヒットサウンド再生
-		Audio::GetInstance()->PlayWave(hitWallSH_, 0.3f);
+        // ヒットサウンド再生
+        Audio::GetInstance()->PlayWave(hitWallSH_, 0.3f);
     }
 
     if (_other->GetColliderID() == "RotateBoard") {

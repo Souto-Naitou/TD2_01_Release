@@ -71,7 +71,7 @@ void DebugManager::MeasureFPS()
 
 void DebugManager::Window_ObjectList()
 {
-#ifdef DEBUG
+#ifdef _DEBUG
     ImGui::PushID("WindowObjectList");
     if (ImGui::Begin("Objects"))
     {
